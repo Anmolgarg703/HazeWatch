@@ -37,7 +37,7 @@ public class SignUp extends AppCompatActivity {
         
         if(validateName(name)){
             if(validateEmail(email)){
-                if (validatePhoneNumber(phone) && phone.length() == 10 && (phone.charAt(0) == '7' || phone.charAt(0) == '8' || phone.charAt(0) == '9')){
+                if (validatePhoneNumber(phone)){
                     if(validatePassword(password)){
                         if(passwordsMatch(password,confirmPassword)){
                             //Sign Up
@@ -102,8 +102,11 @@ public class SignUp extends AppCompatActivity {
             for(int i = 0 ; i<10 ; i++) {
                 value = phone.substring(i,i+1);
                 Integer.parseInt(value);
-
-            }return true;
+            }
+            if(phone.length() == 10 && (phone.charAt(0) == '7' || phone.charAt(0) == '8' || phone.charAt(0) == '9'))
+                return true;
+            else
+                return false;
         }
         catch(Exception e)
         {
