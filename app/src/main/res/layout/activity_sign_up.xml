@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.anmol.hazewatch.MainActivity">
+    tools:context="com.example.anmol.hazewatch.SignUp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,44 +21,62 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Full name"
+        android:ems="10"
+        android:id="@+id/name"
+        android:layout_below="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:hint="Email"
+        android:id="@+id/email"
+        android:layout_below="@+id/name"
+        android:layout_alignStart="@+id/name" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
+        android:hint="Phone Number"
         android:id="@+id/phone"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:hint="Phone number"/>
+        android:layout_below="@+id/email"
+        android:layout_alignEnd="@+id/email" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
+        android:hint="Password"
         android:id="@+id/password"
-        android:layout_gravity="center_horizontal"
         android:layout_below="@+id/phone"
-        android:layout_alignEnd="@+id/phone"
-        android:hint="Password"/>
+        android:layout_alignStart="@+id/phone" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:id="@+id/password2"
+        android:layout_below="@+id/password"
+        android:layout_alignEnd="@+id/password" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:layout_gravity="right"
-        android:adjustViewBounds="true"
-        android:onClick="processForm"
-        android:id="@+id/button"
-        android:contentDescription="Submit Application"
-        android:layout_below="@+id/password"
-        android:layout_alignStart="@+id/signUp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New User? Sign Up"
-        android:onClick="signUp"
+        android:text="SignUp"
         android:id="@+id/signUp"
-        android:clickable="true"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:onClick="processForm"
+        android:layout_below="@+id/password2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp" />
+
+
 </RelativeLayout>
