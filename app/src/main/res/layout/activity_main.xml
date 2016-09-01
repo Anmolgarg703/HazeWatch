@@ -15,7 +15,7 @@
         android:text="Haze Watch"
         android:id="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:textColor="#ff7aff24"
+        android:textColor="#0000b2"
         android:textSize="35dp" />
 
     <EditText

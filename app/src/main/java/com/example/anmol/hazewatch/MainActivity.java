@@ -16,6 +16,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Remove the below two lines to enable login
+        //Intent readings = new Intent(this, Readings.class);
+        //startActivity(readings);
         mPhone = (EditText)findViewById(R.id.phone);
         mPassword = (EditText)findViewById(R.id.password);
     }
