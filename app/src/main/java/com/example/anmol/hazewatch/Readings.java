@@ -11,6 +11,8 @@ import android.os.Handler;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.R;
+
 public class Readings extends Activity implements SensorEventListener {
 
     private SensorManager mSensorManager;

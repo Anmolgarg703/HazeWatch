@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.R;
+import com.example.jaskirat.hazewatch.SensorActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText mPhone;
@@ -31,8 +34,12 @@ public class MainActivity extends AppCompatActivity {
         if (validatePhoneNumber(phone) && phone.length() == 10 && (phone.charAt(0) == '7' || phone.charAt(0) == '8' || phone.charAt(0) == '9')) {
             if(password.length()>=8){
                 //Login Successful
-                Intent readings = new Intent(this, Readings.class);
-                startActivity(readings);
+             //   Intent readings = new Intent(this, Readings.class);
+             //   startActivity(readings);
+
+                Intent mainOptionsFragment = new Intent(this, SensorActivity.class);
+                startActivity(mainOptionsFragment);
+
                 Toast.makeText(this,"Login Successful", Toast.LENGTH_SHORT).show();
             }
             else{

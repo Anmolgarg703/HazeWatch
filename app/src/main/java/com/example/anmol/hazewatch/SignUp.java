@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.R;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
