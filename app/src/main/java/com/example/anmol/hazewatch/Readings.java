@@ -5,11 +5,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.anmol.hazewatch.Utility.GPSTracker;
 
 public class Readings extends Activity implements SensorEventListener {
 
@@ -19,41 +19,9 @@ public class Readings extends Activity implements SensorEventListener {
     private TextView magnetometer;
     private TextView temperature;
     private TextView gps;
-    private MediaRecorder mRecorder = null;
 
     GPSTracker gpsTracker;
 
-    /*public void start() {
-        if (mRecorder == null) {
-            mRecorder = new MediaRecorder();
-            mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-            try {
-                mRecorder.prepare();
-            } catch (IOException e) {
-                Toast.makeText(this, "Problem with mRecorder", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
-            mRecorder.start();
-        }
-    }
-
-    public void stop() {
-        if (mRecorder != null) {
-            mRecorder.stop();
-            mRecorder.release();
-            mRecorder = null;
-        }
-    }
-
-    public double getAmplitude() {
-        if (mRecorder != null)
-            return  mRecorder.getMaxAmplitude();
-        else
-            return 0;
-
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +50,7 @@ public class Readings extends Activity implements SensorEventListener {
             mSensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
             accelerometer.setText("No Accelerometer Sensors");
-            Toast.makeText(this, "No Accelerometer Sensors", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No Accelerometer Sensors", Toast.LENGTH_SHORT).show();
         }
 
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) != null) {
@@ -90,7 +58,7 @@ public class Readings extends Activity implements SensorEventListener {
             mSensorManager.registerListener(this, pressure, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
             pressure.setText("No Pressure Sensors");
-            Toast.makeText(this, "No Pressure Sensors", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No Pressure Sensors", Toast.LENGTH_SHORT).show();
         }
 
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null) {
@@ -98,14 +66,14 @@ public class Readings extends Activity implements SensorEventListener {
             mSensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
             magnetometer.setText("No Magnetic Sensors");
-            Toast.makeText(this, "No Magnetic Sensors", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No Magnetic Sensors", Toast.LENGTH_SHORT).show();
         }
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) != null) {
             Sensor temperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
             mSensorManager.registerListener(this, temperature, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
             temperature.setText("No Temperature Sensors");
-            Toast.makeText(this, "No Temperature Sensors", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No Temperature Sensors", Toast.LENGTH_SHORT).show();
         }
     }
 

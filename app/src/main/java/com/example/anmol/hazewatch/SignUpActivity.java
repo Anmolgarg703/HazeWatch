@@ -1,15 +1,20 @@
 package com.example.anmol.hazewatch;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.anmol.hazewatch.Communication.DBConnect;
+import com.example.anmol.hazewatch.Communication.Request;
+import com.example.anmol.hazewatch.JSONClasses.UserSignUpModel;
+import com.google.gson.Gson;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SignUp extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     private EditText mName;
     private EditText mEmail;
@@ -41,6 +46,7 @@ public class SignUp extends AppCompatActivity {
                     if(validatePassword(password)){
                         if(passwordsMatch(password,confirmPassword)){
                             //Sign Up
+                            signUpUser(name,email,phone,password);
                             Toast.makeText(this,"Successfully Signed Up", Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(this,"Passwords do not match", Toast.LENGTH_SHORT).show();
@@ -66,6 +72,15 @@ public class SignUp extends AppCompatActivity {
             mName.requestFocus();
         }
         //Toast.makeText(this.getApplicationContext(),phone + password, Toast.LENGTH_LONG).show();
+    }
+
+    private void signUpUser(String name, String email, String phone, String password) {
+        UserSignUpModel userSignUp = new UserSignUpModel(name, email, phone, password);
+        Request request = new Request("userSignUp");
+        Gson gson = new Gson();
+        request.setRequest(gson.toJson(userSignUp));
+        String requestObject = gson.toJson(request);
+        new DBConnect(this, requestObject).execute();
     }
 
     private boolean passwordsMatch(String password, String confirmPassword) {

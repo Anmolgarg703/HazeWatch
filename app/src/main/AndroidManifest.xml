@@ -19,8 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUp" />
-        <activity android:name=".Readings"></activity>
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".Readings" />
+        <activity android:name=".ExternalSensors"></activity>
     </application>
 
 </manifest>

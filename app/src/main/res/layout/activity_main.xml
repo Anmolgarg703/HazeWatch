@@ -61,4 +61,14 @@
         android:clickable="true"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="External Sensors"
+        android:id="@+id/button2"
+        android:onClick="loadExternalSensorsPage"
+        android:layout_below="@+id/signUp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp" />
 </RelativeLayout>

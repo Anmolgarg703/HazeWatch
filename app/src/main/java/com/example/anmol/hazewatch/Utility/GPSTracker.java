@@ -1,10 +1,9 @@
-package com.example.anmol.hazewatch;
+package com.example.anmol.hazewatch.Utility;
 
 /**
  * Created by Anmol on 9/1/2016.
  */
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,9 +21,6 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.widget.Toast;
-
-import static android.support.v4.app.ActivityCompat.requestPermissions;
 
 public class GPSTracker extends Service implements LocationListener {
 
