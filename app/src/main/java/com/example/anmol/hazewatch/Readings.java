@@ -8,6 +8,7 @@ import android.hardware.SensorManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -129,7 +130,15 @@ public class Readings extends Activity implements SensorEventListener {
             ax = event.values[0];
             ay = event.values[1];
             az = event.values[2];
-            accelerometer.setText("AX = " + ax + "\nAY = " + ay + "\nAZ = " + az);
+            accelerometer.setText("AX = " + 100 + "\nAY = " + 100 + "\nAZ = " + 100);
+            /*new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    accelerometer.setText("AX = " + 100 + "\nAY = " + 100 + "\nAZ = " + 100);
+                    Log.d("Accelerometer", "HI");
+                }
+            },3000);*/
+
         } else if (sensor.getType() == Sensor.TYPE_PRESSURE) {
             pressureReading = event.values[0];
             pressure.setText("Pressure = " + pressureReading);

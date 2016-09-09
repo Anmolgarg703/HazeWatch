@@ -83,7 +83,6 @@
         android:text="Readings"
         android:id="@+id/reading"
         android:layout_weight="1"
-        android:onClick="Readings"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
