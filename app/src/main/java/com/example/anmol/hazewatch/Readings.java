@@ -85,7 +85,7 @@ public class Readings extends Activity implements SensorEventListener {
             mSensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
             accelerometer.setText("No Accelerometer Sensors");
-            Toast.makeText(this, "No Accelerometer Sensors", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No Accelerometer Sensors", Toast.LENGTH_SHORT).show();
         }
 
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) != null) {
@@ -93,7 +93,7 @@ public class Readings extends Activity implements SensorEventListener {
             mSensorManager.registerListener(this, pressure, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
             pressure.setText("No Pressure Sensors");
-            Toast.makeText(this, "No Pressure Sensors", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No Pressure Sensors", Toast.LENGTH_SHORT).show();
         }
 
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null) {
@@ -101,14 +101,14 @@ public class Readings extends Activity implements SensorEventListener {
             mSensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
             magnetometer.setText("No Magnetic Sensors");
-            Toast.makeText(this, "No Magnetic Sensors", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No Magnetic Sensors", Toast.LENGTH_SHORT).show();
         }
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) != null) {
             Sensor temperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
             mSensorManager.registerListener(this, temperature, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
             temperature.setText("No Temperature Sensors");
-            Toast.makeText(this, "No Temperature Sensors", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No Temperature Sensors", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -130,7 +130,7 @@ public class Readings extends Activity implements SensorEventListener {
             ax = event.values[0];
             ay = event.values[1];
             az = event.values[2];
-            accelerometer.setText("AX = " + 100 + "\nAY = " + 100 + "\nAZ = " + 100);
+            accelerometer.setText("AX = " + ax + "\nAY = " + ay + "\nAZ = " + az);
             /*new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

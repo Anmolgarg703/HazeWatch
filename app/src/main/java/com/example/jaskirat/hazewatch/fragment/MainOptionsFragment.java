@@ -16,12 +16,12 @@ import com.example.anmol.hazewatch.Readings;
 /**
  * Created by jaskirat on 09/07/16.
  */
-public class MainOptionsFragment  extends Fragment {
+public class MainOptionsFragment extends Fragment {
     public static final String TAG = MainOptionsFragment.class.getName();
 
     private View.OnClickListener onClickListener;
 
-    private Button readings;
+    //private Button readings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class MainOptionsFragment  extends Fragment {
 
         ButtonClickHandler clickHandler = new ButtonClickHandler();
 
-        readings = (Button) root.findViewById(R.id.reading);
+        /*readings = (Button) root.findViewById(R.id.reading);
         readings.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -39,18 +39,14 @@ public class MainOptionsFragment  extends Fragment {
                 Intent internalSensorReadings = new Intent(getActivity(), Readings.class);
                 startActivity(internalSensorReadings);
             }
-        });
+        });*/
         root.findViewById(R.id.btnMotion).setOnClickListener(clickHandler);
         root.findViewById(R.id.btnPairedNodes).setOnClickListener(clickHandler);
         root.findViewById(R.id.btnClima).setOnClickListener(clickHandler);
-
         root.findViewById(R.id.btnOxa).setOnClickListener(clickHandler);
-
         root.findViewById(R.id.btnRefreshSensors).setOnClickListener(clickHandler);
-
-        //root.findViewById(R.id.reading).setOnClickListener(clickHandler);
-
-
+        root.findViewById(R.id.reading).setOnClickListener(clickHandler);
+        root.findViewById(R.id.all).setOnClickListener(clickHandler);
 
         return root;
     }
@@ -75,8 +71,4 @@ public class MainOptionsFragment  extends Fragment {
         }
     }
 
-  //  public void readings(View v){
-  //      Intent internalSensorReadings = new Intent(this.getActivity(), Readings.class);
-   //     startActivity(internalSensorReadings);
-  //  }
 }

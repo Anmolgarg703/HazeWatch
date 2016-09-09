@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jaskirat.hazewatch.MessageConstants;
 import com.example.jaskirat.hazewatch.NodeApplication;
@@ -51,13 +52,6 @@ public class OxaFragment extends Fragment implements OxaSensor.OxaListener {
     public void onPause() {
         super.onPause();
 
-        DefaultNotifier.instance().removeOxaListener(this);
-
-        for(OxaSensor oxa : oxaSensors) {
-            //Turn off oxa
-            oxa.stopSensor();
-        }
-
     }
 
     @Override
@@ -70,6 +64,7 @@ public class OxaFragment extends Fragment implements OxaSensor.OxaListener {
         NodeDevice node = NodeApplication.getActiveNode();
         if(node != null)
         {
+            //Toast.makeText(this.getActivity(),"Node found",Toast.LENGTH_SHORT).show();
             oxaSensors = node.findAllSensors(NodeEnums.ModuleType.OXA);
             if(oxaSensors.size() > 1) {
                 if (getView() != null) {
@@ -123,4 +118,18 @@ public class OxaFragment extends Fragment implements OxaSensor.OxaListener {
         }
       }
     };
+
+    private SensorReading<Float> convertReading(OxaSensor sensor, SensorReading<Float> reading){
+        if(sensor != null){
+            float baseline = sensor.getBaseline();
+            float tia_gain = sensor.getTiaGainSetting().toConversionUnit();
+            float responseRatio = sensor.getResponse();
+
+            double value = ((reading.getValue() - baseline) / 0.37736f / (tia_gain * responseRatio)) * 1E9f;
+            return new SensorReading<Float>((float) Math.max(0, value), reading.getTimeStamp(), reading.getTimeStampSource());
+        }else{
+
+        }
+        return reading;
+    }
 }

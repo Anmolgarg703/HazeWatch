@@ -5,10 +5,12 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-feature android:name="android.hardware.bluetooth" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth"
+        android:required="true" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
@@ -18,24 +20,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.anmol.hazewatch.MainActivity">
+        <activity android:name=".anmol.hazewatch.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.example.anmol.hazewatch.SignUp" />
-        <activity android:name="com.example.jaskirat.hazewatch.SensorActivity" />
-        <activity android:name=".anmol.hazewatch.Readings"></activity>
+        <activity android:name=".anmol.hazewatch.SignUp" />
+        <activity android:name=".jaskirat.hazewatch.SensorActivity" />
+        <activity android:name=".anmol.hazewatch.Readings" />
+        <activity android:name=".anmol.hazewatch.AllReadings"></activity>
     </application>
-
-
-
-
-
-
-
 
 </manifest>

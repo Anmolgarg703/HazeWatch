@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Remove the below two lines to enable login
-        //Intent readings = new Intent(this, Readings.class);
-        //startActivity(readings);
+        Intent sensorActivity = new Intent(this, SensorActivity.class);
+        startActivity(sensorActivity);
         mPhone = (EditText)findViewById(R.id.phone);
         mPassword = (EditText)findViewById(R.id.password);
     }

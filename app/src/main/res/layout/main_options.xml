@@ -44,9 +44,12 @@
             android:text="Stream Motion"
             android:id="@+id/btnMotion"
         android:layout_weight="1"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/btnClima"
-        android:layout_toEndOf="@+id/btnClima" />
+        android:layout_below="@+id/btnRefreshSensors"
+        android:layout_toRightOf="@+id/btnOxa"
+        android:layout_toEndOf="@+id/btnOxa"
+        android:layout_marginLeft="53dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="29dp" />
 
 
 
@@ -57,9 +60,10 @@
             android:text="Stream Clima"
             android:id="@+id/btnClima"
             android:layout_weight="1"
-        android:layout_marginTop="47dp"
-        android:layout_below="@+id/btnMotion"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="37dp"
+        android:layout_below="@+id/btnOxa"
+        android:layout_alignLeft="@+id/btnOxa"
+        android:layout_alignStart="@+id/btnOxa" />
 
 
 
@@ -71,8 +75,10 @@
             android:id="@+id/btnOxa"
             android:layout_weight="1"
         android:layout_alignTop="@+id/btnMotion"
-        android:layout_toLeftOf="@+id/btnClima"
-        android:layout_toStartOf="@+id/btnClima" />
+        android:layout_alignLeft="@+id/btnRefreshSensors"
+        android:layout_alignStart="@+id/btnRefreshSensors"
+        android:layout_marginLeft="34dp"
+        android:layout_marginStart="34dp" />
 
 
 
@@ -83,15 +89,18 @@
         android:text="Readings"
         android:id="@+id/reading"
         android:layout_weight="1"
-        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/btnClima"
+        android:layout_alignLeft="@+id/btnMotion"
+        android:layout_alignStart="@+id/btnMotion" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All Readings"
+        android:id="@+id/all"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/btnClima"
         android:layout_centerHorizontal="true" />
-
-
-
-
-
-
-
 
 
 </RelativeLayout>

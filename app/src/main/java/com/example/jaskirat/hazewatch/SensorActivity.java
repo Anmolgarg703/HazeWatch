@@ -18,6 +18,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.R;
+import com.example.anmol.hazewatch.AllReadings;
+import com.example.anmol.hazewatch.Readings;
 import com.example.jaskirat.hazewatch.fragment.ClimaFragment;
 import com.example.jaskirat.hazewatch.fragment.MainOptionsFragment;
 import com.example.jaskirat.hazewatch.fragment.MotionFragment;
@@ -67,13 +69,13 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
     public void onPause(){
         super.onPause();
 
-        NodeDevice node = NodeApplication.getActiveNode();
-        if(isNodeConnected(node)){
-            node.disconnect(); //Clean up after ourselves.
-        }
+        //NodeDevice node = NodeApplication.getActiveNode();
+        //if(isNodeConnected(node)){
+         //   node.disconnect(); //Clean up after ourselves.
+        //}
 
         //Registering for Events
-        DefaultNotifier.instance().removeSensorDetectorListener(this);
+        //DefaultNotifier.instance().removeSensorDetectorListener(this);
     }
 
     @Override
@@ -93,6 +95,16 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
             }
             animateToFragment(mConnectionFragment, NodeConnectionDialog.FRAGMENT_TAG);
             return;
+        }
+
+        else if(view.getId() == R.id.reading){
+            Intent internalSensorReadings = new Intent(this, Readings.class);
+            startActivity(internalSensorReadings);
+        }
+
+        else if(view.getId() == R.id.all){
+            Intent allReadings = new Intent(this, AllReadings.class);
+            startActivity(allReadings);
         }
 
         else if(!isNodeConnected(node))
