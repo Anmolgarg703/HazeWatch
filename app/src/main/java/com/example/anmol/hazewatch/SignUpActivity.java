@@ -1,11 +1,13 @@
 package com.example.anmol.hazewatch;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.anmol.hazewatch.Communication.Communication;
 import com.example.anmol.hazewatch.Communication.DBConnect;
 import com.example.anmol.hazewatch.Communication.Request;
 import com.example.anmol.hazewatch.JSONClasses.UserSignUpModel;
@@ -14,7 +16,7 @@ import com.google.gson.Gson;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity implements Communication{
 
     private EditText mName;
     private EditText mEmail;
@@ -45,9 +47,9 @@ public class SignUpActivity extends AppCompatActivity {
                 if (validatePhoneNumber(phone)){
                     if(validatePassword(password)){
                         if(passwordsMatch(password,confirmPassword)){
-                            //Sign Up
+
                             signUpUser(name,email,phone,password);
-                            Toast.makeText(this,"Successfully Signed Up", Toast.LENGTH_SHORT).show();
+
                         }else{
                             Toast.makeText(this,"Passwords do not match", Toast.LENGTH_SHORT).show();
                             mConfirmPassword.setText("");
@@ -71,7 +73,6 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(this,"Please enter a valid name", Toast.LENGTH_SHORT).show();
             mName.requestFocus();
         }
-        //Toast.makeText(this.getApplicationContext(),phone + password, Toast.LENGTH_LONG).show();
     }
 
     private void signUpUser(String name, String email, String phone, String password) {
@@ -98,7 +99,6 @@ public class SignUpActivity extends AppCompatActivity {
     private boolean validateEmail(String email) {
         Pattern VALID_EMAIL_ADDRESS_REGEX =
                 Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-        //public static boolean validate(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
         return matcher.find();
     }
@@ -126,6 +126,24 @@ public class SignUpActivity extends AppCompatActivity {
         catch(Exception e)
         {
             return false;
+        }
+    }
+
+    @Override
+    public void onCompletion(String response) {
+        //Toast.makeText(this,response,Toast.LENGTH_SHORT).show();
+        Gson gson = new Gson();
+        UserSignUpModel userSignUp = gson.fromJson(response, UserSignUpModel.class);
+        if(userSignUp.getAlreadyExists().equals("1")){
+            Toast.makeText(this,"Already exists",Toast.LENGTH_SHORT).show();
+        }
+        else if(userSignUp.getSignUp().equals("1")){
+            Toast.makeText(this,"Successfully Signed Up",Toast.LENGTH_SHORT).show();
+            Intent readings = new Intent(this, Readings.class);
+            startActivity(readings);
+        }
+        else{
+            Toast.makeText(this,"Some error",Toast.LENGTH_SHORT).show();
         }
     }
 }
