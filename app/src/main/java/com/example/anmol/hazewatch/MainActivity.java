@@ -7,12 +7,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.anmol.hazewatch.Communication.Communication;
 import com.example.anmol.hazewatch.Communication.DBConnect;
 import com.example.anmol.hazewatch.Communication.Request;
 import com.example.anmol.hazewatch.JSONClasses.UserLoginModel;
 import com.google.gson.Gson;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Communication{
 
     private EditText mPhone;
     private EditText mPassword;
@@ -33,25 +34,6 @@ public class MainActivity extends AppCompatActivity {
         String password = mPassword.getText().toString();
 
         loginUser(phone,password);
-
-        if (validatePhoneNumber(phone) && phone.length() == 10 && (phone.charAt(0) == '7' || phone.charAt(0) == '8' || phone.charAt(0) == '9')) {
-            if(password.length()>=8){
-                loginUser(phone,password);
-                Toast.makeText(this,"Login Successful",Toast.LENGTH_SHORT).show();
-                //Login Successful
-                Intent readings = new Intent(this, Readings.class);
-                startActivity(readings);
-                //Toast.makeText(this,"Login Successful", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                Toast.makeText(this,"Password must be atleast 8 characters long", Toast.LENGTH_SHORT).show();
-                mPassword.requestFocus();
-            }
-        }
-        else{
-            Toast.makeText(this,"Invalid Phone Number", Toast.LENGTH_SHORT).show();
-            mPhone.requestFocus();
-        }
     }
 
      private void loginUser(String phone, String password) {
@@ -60,9 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         request.setRequest(gson.toJson(userLogin));
         String requestObject = gson.toJson(request);
-        //String response = null;
         new DBConnect(this, requestObject).execute();
-        //return response;
     }
 
     public void signUp(View v){
@@ -75,18 +55,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(externalSensorRedirect);
     }
 
-    private boolean validatePhoneNumber(String phone) {
-        try{
-            String value = "";
-            for(int i = 0 ; i<10 ; i++) {
-                value = phone.substring(i,i+1);
-                Integer.parseInt(value);
-
-            }return true;
+    @Override
+    public void onCompletion(String response) {
+        Gson gson = new Gson();
+        UserLoginModel userLogin = gson.fromJson(response, UserLoginModel.class);
+        if(userLogin.getLogin().equals("1")){
+            Intent readings = new Intent(this, Readings.class);
+            startActivity(readings);
         }
-        catch(Exception e)
-        {
-            return false;
+        else{
+            Toast.makeText(this,"Login failed",Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -3,7 +3,6 @@ package com.example.anmol.hazewatch.Communication;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -28,7 +27,7 @@ public class DBConnect extends AsyncTask<String,Void,String> {
 
     protected void onPreExecute(){
 
-        Toast.makeText(context,"dasdas",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context,"dasdas",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -60,12 +59,14 @@ public class DBConnect extends AsyncTask<String,Void,String> {
         //String response = gson.fromJson(result);
         //UserLoginModel userLogin = gson.fromJson(result,UserLoginModel.class);
         //response = result;
-        Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+        Communication l = (Communication) context;
+        l.onCompletion(result);
     }
 
     private HttpURLConnection getConnection() throws Exception
     {
-        String urlString = "http://172.31.76.222/HazeWatch_android/receive.php";
+        String urlString = "http://172.31.72.238/HazeWatch_android/receive.php";
         URL url = new URL(urlString);
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

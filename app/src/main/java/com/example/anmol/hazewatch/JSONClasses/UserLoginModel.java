@@ -6,6 +6,15 @@ package com.example.anmol.hazewatch.JSONClasses;
 public class UserLoginModel {
     String phone;
     String password;
+    String Login;
+
+    public String getLogin() {
+        return Login;
+    }
+
+    public void setLogin(String login) {
+        this.Login = login;
+    }
 
     public UserLoginModel(String phone, String password){
         this.phone = phone;
