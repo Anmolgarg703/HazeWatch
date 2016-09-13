@@ -11,13 +11,13 @@
         >
 
     <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="NODE Connect"
-            android:id="@+id/btnPairedNodes"
-            android:layout_weight="1"
-            android:layout_gravity="center"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="NODE Connect"
+        android:id="@+id/btnPairedNodes"
+        android:layout_weight="1"
+        android:layout_gravity="center"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="5dp"
         android:layout_alignParentTop="true"
@@ -38,11 +38,11 @@
         android:layout_alignEnd="@+id/btnPairedNodes" />
 
     <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Stream Motion"
-            android:id="@+id/btnMotion"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stream Motion"
+        android:id="@+id/btnMotion"
         android:layout_weight="1"
         android:layout_below="@+id/btnRefreshSensors"
         android:layout_toRightOf="@+id/btnOxa"
@@ -54,12 +54,12 @@
 
 
     <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Stream Clima"
-            android:id="@+id/btnClima"
-            android:layout_weight="1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stream Clima"
+        android:id="@+id/btnClima"
+        android:layout_weight="1"
         android:layout_marginTop="37dp"
         android:layout_below="@+id/btnOxa"
         android:layout_alignLeft="@+id/btnOxa"
@@ -68,12 +68,12 @@
 
 
     <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Stream OXA"
-            android:id="@+id/btnOxa"
-            android:layout_weight="1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stream OXA"
+        android:id="@+id/btnOxa"
+        android:layout_weight="1"
         android:layout_alignTop="@+id/btnMotion"
         android:layout_alignLeft="@+id/btnRefreshSensors"
         android:layout_alignStart="@+id/btnRefreshSensors"

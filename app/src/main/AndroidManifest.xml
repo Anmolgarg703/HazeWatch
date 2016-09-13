@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".anmol.hazewatch.SignUp" />
+        <activity android:name=".anmol.hazewatch.SignUpActivity" />
         <activity android:name=".jaskirat.hazewatch.SensorActivity" />
         <activity android:name=".anmol.hazewatch.Readings" />
         <activity android:name=".anmol.hazewatch.AllReadings"></activity>

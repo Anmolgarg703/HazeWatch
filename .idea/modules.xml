@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/APIDemo/APIDemo.iml" filepath="$PROJECT_DIR$/APIDemo/APIDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/HazeWatch_andro.iml" filepath="$PROJECT_DIR$/HazeWatch_andro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HazeWatch_android.iml" filepath="$PROJECT_DIR$/HazeWatch_android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

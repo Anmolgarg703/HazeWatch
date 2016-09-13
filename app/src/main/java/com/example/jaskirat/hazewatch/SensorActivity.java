@@ -5,7 +5,6 @@ package com.example.jaskirat.hazewatch;
  */
 
 
-
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
@@ -18,7 +17,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.R;
-//import com.example.anmol.hazewatch.AllReadings;
+import com.example.anmol.hazewatch.AllReadings;
 import com.example.anmol.hazewatch.Readings;
 import com.example.jaskirat.hazewatch.fragment.ClimaFragment;
 import com.example.jaskirat.hazewatch.fragment.MainOptionsFragment;
@@ -30,6 +29,8 @@ import com.variable.framework.dispatcher.DefaultNotifier;
 import com.variable.framework.node.BaseSensor;
 import com.variable.framework.node.NodeDevice;
 import com.variable.framework.node.enums.NodeEnums;
+
+//import com.example.anmol.hazewatch.AllReadings;
 
 
 
@@ -103,8 +104,8 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
         }
 
         else if(view.getId() == R.id.all){
-           // Intent allReadings = new Intent(this, AllReadings.class);
-           // startActivity(allReadings);
+           Intent allReadings = new Intent(this, AllReadings.class);
+           startActivity(allReadings);
         }
 
         else if(!isNodeConnected(node))
