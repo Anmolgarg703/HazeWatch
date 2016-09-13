@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.R;
 import com.example.anmol.hazewatch.AllReadings;
+import com.example.anmol.hazewatch.MainActivity;
 import com.example.anmol.hazewatch.Readings;
 import com.example.jaskirat.hazewatch.fragment.ClimaFragment;
 import com.example.jaskirat.hazewatch.fragment.MainOptionsFragment;
@@ -36,19 +38,22 @@ import com.variable.framework.node.enums.NodeEnums;
 
 public class SensorActivity extends FragmentActivity implements View.OnClickListener, NodeDevice.SensorDetector{
 
-
-
+    private static final String LOGIN = "isLogin";
+    private static final String PREFERENCE_NAME = "LoginActivity";
     private static final String TAG = SensorActivity.class.getName();
 
    // private boolean isPulsing = false;
     private ProgressDialog mProgressDialog;
     private NodeConnectionDialog mConnectionFragment;
+    private SharedPreferences mPrefs;
 
     //region Lifecycle Events
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensors);
+
+        mPrefs = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
     }
 
 
@@ -106,6 +111,12 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
         else if(view.getId() == R.id.all){
            Intent allReadings = new Intent(this, AllReadings.class);
            startActivity(allReadings);
+        }
+
+        else if(view.getId() == R.id.logout){
+            mPrefs.edit().putBoolean(LOGIN,false).commit();
+            Intent logout = new Intent(this, MainActivity.class);
+            startActivity(logout);
         }
 
         else if(!isNodeConnected(node))

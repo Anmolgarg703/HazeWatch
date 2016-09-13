@@ -1,17 +1,13 @@
 /* See http://variableinc.com/terms-use-license for the full license governing this code. */
 package com.example.jaskirat.hazewatch.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.R;
-import com.example.anmol.hazewatch.MainActivity;
-import com.example.anmol.hazewatch.Readings;
 
 /**
  * Created by jaskirat on 09/07/16.
@@ -21,7 +17,6 @@ public class MainOptionsFragment extends Fragment {
 
     private View.OnClickListener onClickListener;
 
-    //private Button readings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,17 +24,9 @@ public class MainOptionsFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.main_options, null, false);
 
+
         ButtonClickHandler clickHandler = new ButtonClickHandler();
 
-        /*readings = (Button) root.findViewById(R.id.reading);
-        readings.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v){
-                Intent internalSensorReadings = new Intent(getActivity(), Readings.class);
-                startActivity(internalSensorReadings);
-            }
-        });*/
         root.findViewById(R.id.btnMotion).setOnClickListener(clickHandler);
         root.findViewById(R.id.btnPairedNodes).setOnClickListener(clickHandler);
         root.findViewById(R.id.btnClima).setOnClickListener(clickHandler);
@@ -47,7 +34,7 @@ public class MainOptionsFragment extends Fragment {
         root.findViewById(R.id.btnRefreshSensors).setOnClickListener(clickHandler);
         root.findViewById(R.id.reading).setOnClickListener(clickHandler);
         root.findViewById(R.id.all).setOnClickListener(clickHandler);
-
+        root.findViewById(R.id.logout).setOnClickListener(clickHandler);
         return root;
     }
 

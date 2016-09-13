@@ -18,10 +18,10 @@
         android:id="@+id/btnPairedNodes"
         android:layout_weight="1"
         android:layout_gravity="center"
-        android:layout_alignParentLeft="true"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="55dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp" />
+        android:layout_centerHorizontal="true" />
 
 
     <Button
@@ -98,9 +98,24 @@
         android:layout_height="wrap_content"
         android:text="All Readings"
         android:id="@+id/all"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/btnClima"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/logout"
+        android:layout_alignEnd="@+id/btnClima" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:id="@+id/logout"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/reading" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/textView6"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/btnOxa" />
 
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.anmol.hazewatch;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,17 +18,25 @@ import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity implements Communication {
 
+    private static final String LOGIN = "isLogin";
+    private static final String PREFERENCE_NAME = "LoginActivity";
     private EditText mPhone;
     private EditText mPassword;
+    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Remove the below two lines to enable login
-       // Intent sensorActivity = new Intent(this, SensorActivity.class);
-        //startActivity(sensorActivity);
+        mPrefs = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
+
+        boolean isLogin = mPrefs.getBoolean(LOGIN,false);
+        if(isLogin){
+            Intent sensorActivity = new Intent(this, SensorActivity.class);
+            startActivity(sensorActivity);
+        }
+
         mPhone = (EditText)findViewById(R.id.phone);
         mPassword = (EditText)findViewById(R.id.password);
     }
@@ -53,16 +62,12 @@ public class MainActivity extends AppCompatActivity implements Communication {
         startActivity(signUpRedirect);
     }
 
-   // public void loadExternalSensorsPage(View v){
-   //     Intent externalSensorRedirect = new Intent(this,ExternalSensors.class);
-   //     startActivity(externalSensorRedirect);
-   // }
-
-
     public void onCompletion(String response) {
         Gson gson = new Gson();
         UserLoginModel userLogin = gson.fromJson(response, UserLoginModel.class);
         if(userLogin.getLogin().equals("1")){
+            mPrefs.edit().putBoolean(LOGIN, true).commit();
+            mPrefs.edit().putString("Name", userLogin.getPhone());
             Intent mainOptionsFragment = new Intent(this, SensorActivity.class);
             startActivity(mainOptionsFragment);
         }
