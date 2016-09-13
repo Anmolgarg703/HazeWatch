@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.R;
-import com.example.anmol.hazewatch.AllReadings;
+//import com.example.anmol.hazewatch.AllReadings;
 import com.example.anmol.hazewatch.Readings;
 import com.example.jaskirat.hazewatch.fragment.ClimaFragment;
 import com.example.jaskirat.hazewatch.fragment.MainOptionsFragment;
@@ -103,8 +103,8 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
         }
 
         else if(view.getId() == R.id.all){
-            Intent allReadings = new Intent(this, AllReadings.class);
-            startActivity(allReadings);
+           // Intent allReadings = new Intent(this, AllReadings.class);
+           // startActivity(allReadings);
         }
 
         else if(!isNodeConnected(node))
