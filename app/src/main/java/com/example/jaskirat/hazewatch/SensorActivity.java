@@ -5,11 +5,13 @@ package com.example.jaskirat.hazewatch;
  */
 
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -18,10 +20,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.R;
-import com.example.anmol.hazewatch.AllReadings;
 import com.example.anmol.hazewatch.MainActivity;
 import com.example.anmol.hazewatch.Readings;
-import com.example.jaskirat.hazewatch.fragment.ClimaFragment;
 import com.example.jaskirat.hazewatch.fragment.MainOptionsFragment;
 import com.example.jaskirat.hazewatch.fragment.MotionFragment;
 import com.example.jaskirat.hazewatch.fragment.NodeConnectionDialog;
@@ -109,8 +109,14 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
         }
 
         else if(view.getId() == R.id.all){
-           Intent allReadings = new Intent(this, AllReadings.class);
-           startActivity(allReadings);
+           //Intent allReadings = new Intent(this, AllReadings.class);
+           //startActivity(allReadings);
+            // Map point based on address
+            Uri location = Uri.parse("geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California");
+            // Or map point based on latitude/longitude
+            // Uri location = Uri.parse("geo:37.422219,-122.08364?z=14"); // z param is zoom level
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+            startActivity(mapIntent);
         }
 
         else if(view.getId() == R.id.logout){
@@ -130,12 +136,6 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
                 animateToFragment(new MotionFragment(), MotionFragment.TAG);
                 break;
 
-            case R.id.btnClima:
-                if(checkForSensor(node, NodeEnums.ModuleType.CLIMA, true))
-                    animateToFragment(new ClimaFragment(), ClimaFragment.TAG);
-                break;
-
-
             case R.id.btnOxa:
                 if(checkForSensor(node, NodeEnums.ModuleType.OXA, true))
                     animateToFragment(new OxaFragment(), OxaFragment.TAG);
@@ -143,7 +143,22 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
 
             //NODE must be polled to maintain an up to date array of sensors.
             case R.id.btnRefreshSensors:
-                node.requestSensorUpdate();
+                new AlertDialog.Builder(this)
+                        .setTitle("Disconnect all sensors")
+                        .setMessage("Are you sure you want to disconnect all sensors?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                BluetoothService.killConnections();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+                //node.requestSensorUpdate();
                 break;
 
 

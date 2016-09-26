@@ -93,5 +93,14 @@
         android:layout_below="@+id/gps_heading"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View on Map"
+        android:onClick="viewOnMap"
+        android:id="@+id/button2"
+        android:layout_below="@+id/gps"
+        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>

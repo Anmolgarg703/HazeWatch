@@ -1,12 +1,15 @@
 package com.example.anmol.hazewatch;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.R;
@@ -22,6 +25,8 @@ public class Readings extends Activity implements SensorEventListener {
     private TextView gps;
 
     GPSTracker gpsTracker;
+    private double latitude;
+    private double longitude;
 
 
     @Override
@@ -121,12 +126,20 @@ public class Readings extends Activity implements SensorEventListener {
     public void getGPSLocation() {
         gpsTracker = new GPSTracker(Readings.this);
         if(gpsTracker.canGetLocation()){
-            double latitude = gpsTracker.getLatitude();
-            double longitude = gpsTracker.getLongitude();
+            latitude = gpsTracker.getLatitude();
+            longitude = gpsTracker.getLongitude();
             gps.setText("Latitude: " + latitude + "\nLongitude: " + longitude);
         }else{
             gpsTracker.showSettingsAlert();
         }
+    }
+
+    public void viewOnMap(View v){
+        Uri location = Uri.parse("geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California");
+        // Or map point based on latitude/longitude
+        // Uri location = Uri.parse("geo:37.422219,-122.08364?z=14"); // z param is zoom level
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+        startActivity(mapIntent);
     }
 
 }

@@ -29,7 +29,6 @@ public class MainOptionsFragment extends Fragment {
 
         root.findViewById(R.id.btnMotion).setOnClickListener(clickHandler);
         root.findViewById(R.id.btnPairedNodes).setOnClickListener(clickHandler);
-        root.findViewById(R.id.btnClima).setOnClickListener(clickHandler);
         root.findViewById(R.id.btnOxa).setOnClickListener(clickHandler);
         root.findViewById(R.id.btnRefreshSensors).setOnClickListener(clickHandler);
         root.findViewById(R.id.reading).setOnClickListener(clickHandler);

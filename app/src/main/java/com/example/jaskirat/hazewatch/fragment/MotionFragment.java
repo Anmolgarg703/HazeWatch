@@ -85,8 +85,6 @@ public class MotionFragment extends Fragment implements
     @Override
     public void onPause() {
         super.onPause();
-
-
         if(motion != null) {
             //Stop the Motion Stream
             motion.stopSensor();
