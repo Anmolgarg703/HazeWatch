@@ -11,11 +11,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.R;
+import com.example.anmol.hazewatch.Communication.Communication;
+import com.example.anmol.hazewatch.Communication.DBConnect;
+import com.example.anmol.hazewatch.Communication.Request;
+import com.example.anmol.hazewatch.JSONClasses.DatabaseEntryModel;
 import com.example.anmol.hazewatch.Utility.GPSTracker;
+import com.google.gson.Gson;
 
-public class Readings extends Activity implements SensorEventListener {
+public class Readings extends Activity implements SensorEventListener, Communication {
 
     private SensorManager mSensorManager;
     private TextView accelerometer;
@@ -27,6 +33,10 @@ public class Readings extends Activity implements SensorEventListener {
     GPSTracker gpsTracker;
     private double latitude;
     private double longitude;
+
+    private float ax, ay, az;
+    private float mx, my, mz;
+    private float pressureReading, temperatureReading;
 
 
     @Override
@@ -93,9 +103,6 @@ public class Readings extends Activity implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
 
         Sensor sensor = event.sensor;
-        float ax, ay, az;
-        float mx, my, mz;
-        float pressureReading, temperatureReading;
 
         if (sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             ax = event.values[0];
@@ -129,9 +136,27 @@ public class Readings extends Activity implements SensorEventListener {
             latitude = gpsTracker.getLatitude();
             longitude = gpsTracker.getLongitude();
             gps.setText("Latitude: " + latitude + "\nLongitude: " + longitude);
+            addEntryToDb();
         }else{
             gpsTracker.showSettingsAlert();
         }
+    }
+
+    private void addEntryToDb() {
+        DatabaseEntryModel databaseEntry = new DatabaseEntryModel();
+        Request request = new Request("addEntryToDb");
+        databaseEntry.setLongitude(longitude);
+        databaseEntry.setLatitude(latitude);
+        databaseEntry.setAccelerometerX(ax);
+        databaseEntry.setAccelerometerY(ay);
+        databaseEntry.setAccelerometerZ(az);
+        databaseEntry.setMagnetometerX(mx);
+        databaseEntry.setMagnetometerY(my);
+        databaseEntry.setMagnetometerZ(mz);
+        Gson gson = new Gson();
+        request.setRequest(gson.toJson(databaseEntry));
+        String requestObject = gson.toJson(request);
+        new DBConnect(this, requestObject).execute();
     }
 
     public void viewOnMap(View v){
@@ -142,4 +167,8 @@ public class Readings extends Activity implements SensorEventListener {
         startActivity(mapIntent);
     }
 
+    @Override
+    public void onCompletion(String response) {
+        Toast.makeText(this,response,Toast.LENGTH_SHORT).show();
+    }
 }
