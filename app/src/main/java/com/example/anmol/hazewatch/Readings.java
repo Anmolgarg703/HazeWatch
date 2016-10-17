@@ -1,22 +1,27 @@
 package com.example.anmol.hazewatch;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.R;
 import com.example.anmol.hazewatch.Communication.Communication;
 import com.example.anmol.hazewatch.Communication.DBConnect;
+import com.example.anmol.hazewatch.Communication.DBHelper;
 import com.example.anmol.hazewatch.Communication.Request;
 import com.example.anmol.hazewatch.JSONClasses.DatabaseEntryModel;
 import com.example.anmol.hazewatch.Utility.GPSTracker;
@@ -43,11 +48,15 @@ public class Readings extends Activity implements SensorEventListener, Communica
     private static final String PREFERENCE_NAME = "LoginActivity";
     private SharedPreferences mPrefs;
 
+    DBHelper myDb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_readings);
+
+        myDb = new DBHelper(this);
 
         mPrefs = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
 
@@ -64,7 +73,7 @@ public class Readings extends Activity implements SensorEventListener, Communica
                 getGPSLocation();
                 handler.postDelayed(this, 10000);
             }
-        }, 5000);
+        }, 10000);
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
@@ -139,41 +148,42 @@ public class Readings extends Activity implements SensorEventListener, Communica
 
     public void getGPSLocation() {
         gpsTracker = new GPSTracker(Readings.this);
-        if(gpsTracker.canGetLocation()){
+        if (gpsTracker.canGetLocation()) {
             latitude = gpsTracker.getLatitude();
             longitude = gpsTracker.getLongitude();
             gps.setText("Latitude: " + latitude + "\nLongitude: " + longitude);
             addEntryToDb();
-        }else{
+        } else {
             gpsTracker.showSettingsAlert();
         }
     }
 
     private void addEntryToDb() {
-
         DatabaseEntryModel databaseEntry = new DatabaseEntryModel();
         Request request = new Request("addEntryToDb");
         databaseEntry.setLongitude(longitude);
         databaseEntry.setLatitude(latitude);
         databaseEntry.setAccelerometerReadings(ax, ay, az);
         databaseEntry.setMagnetometerReadings(mx, my, mz);
-        String phoneNumber = mPrefs.getString("Phone","UnknownUser");
-        //Toast.makeText(this, "Username "+ username,Toast.LENGTH_SHORT).show();
+        String phoneNumber = mPrefs.getString("Phone", "UnknownUser");
         databaseEntry.setUsername(phoneNumber);
-        Long tsLong = System.currentTimeMillis()/1000;
+        Long tsLong = System.currentTimeMillis() / 1000;
         String timestamp = tsLong.toString();
         databaseEntry.setTimestamp(timestamp);
-        Log.d("Readings","Calling Oxa Fragment");
+        Log.d("Readings", "Calling Oxa Fragment");
         databaseEntry = OxaFragment.combineValues(databaseEntry);
         Gson gson = new Gson();
         request.setRequest(gson.toJson(databaseEntry));
         String requestObject = gson.toJson(request);
-        Log.d("Readings", requestObject);
-        //Toast.makeText(this, requestObject,Toast.LENGTH_SHORT).show();
-        new DBConnect(this, requestObject).execute();
+        if (checkInternetConnection()) {
+            new DBConnect(this, requestObject).execute();
+        }
+        else {
+            myDb.insertData(requestObject);
+        }
     }
 
-    public void viewOnMap(View v){
+    public void viewOnMap(View v) {
         Uri location = Uri.parse("geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California");
         // Or map point based on latitude/longitude
         // Uri location = Uri.parse("geo:37.422219,-122.08364?z=14"); // z param is zoom level
@@ -181,8 +191,29 @@ public class Readings extends Activity implements SensorEventListener, Communica
         startActivity(mapIntent);
     }
 
+    public void displayNumberOfRows(View v){
+        int numberOfRows = myDb.getNumberOfRows();
+        Toast.makeText(this, "Number of Rows = " + numberOfRows, Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public void onCompletion(String response) {
-        //Toast.makeText(this,"Hello",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Response" + response,Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean checkInternetConnection() {
+        ConnectivityManager connec = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo ni = connec.getActiveNetworkInfo();
+
+        if (ni == null) {
+            return false;
+        } else {
+            if (ni.isConnected()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }

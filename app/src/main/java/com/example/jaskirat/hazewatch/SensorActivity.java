@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.R;
 import com.example.anmol.hazewatch.MainActivity;
 import com.example.anmol.hazewatch.Readings;
+import com.example.anmol.hazewatch.SyncDatabase;
 import com.example.jaskirat.hazewatch.fragment.MainOptionsFragment;
 import com.example.jaskirat.hazewatch.fragment.MotionFragment;
 import com.example.jaskirat.hazewatch.fragment.NodeConnectionDialog;
@@ -101,6 +102,11 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
             }
             animateToFragment(mConnectionFragment, NodeConnectionDialog.FRAGMENT_TAG);
             return;
+        }
+
+        else if(view.getId()==R.id.syncDatabase){
+            Intent syncDatabase = new Intent(this, SyncDatabase.class);
+            startActivity(syncDatabase);
         }
 
         else if(view.getId() == R.id.reading){

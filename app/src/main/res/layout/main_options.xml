@@ -74,8 +74,9 @@
         android:text="Readings"
         android:id="@+id/reading"
         android:layout_weight="1"
-        android:layout_above="@+id/logout"
-        android:layout_alignStart="@+id/btnMotion" />
+        android:layout_alignBaseline="@+id/logout"
+        android:layout_alignBottom="@+id/logout"
+        android:layout_toEndOf="@+id/textView6" />
 
     <Button
         android:layout_width="wrap_content"
@@ -91,7 +92,8 @@
         android:text="Logout"
         android:id="@+id/logout"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/all" />
+        android:layout_alignEnd="@+id/btnMotion"
+        android:layout_marginBottom="73dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -100,6 +102,14 @@
         android:id="@+id/textView6"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/btnOxa" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sync Database"
+        android:id="@+id/syncDatabase"
+        android:layout_below="@+id/reading"
+        android:layout_alignStart="@+id/reading" />
 
 
 </RelativeLayout>

@@ -34,6 +34,7 @@ public class MainOptionsFragment extends Fragment {
         root.findViewById(R.id.reading).setOnClickListener(clickHandler);
         root.findViewById(R.id.all).setOnClickListener(clickHandler);
         root.findViewById(R.id.logout).setOnClickListener(clickHandler);
+        root.findViewById(R.id.syncDatabase).setOnClickListener(clickHandler);
         return root;
     }
 
