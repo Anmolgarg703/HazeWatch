@@ -27,6 +27,18 @@ public class DatabaseEntryModel {
     String SO2;
     String CO;
 
+    public void setAccelerometerReadings(float ax, float ay, float az){
+        this.accelerometerX = ax;
+        this.accelerometerY = ay;
+        this.accelerometerZ = az;
+    }
+
+    public void setMagnetometerReadings(float mx, float my, float mz){
+        this.magnetometerX = mx;
+        this.magnetometerY = my;
+        this.magnetometerZ = mz;
+    }
+
     public String getUsername() {
         return username;
     }

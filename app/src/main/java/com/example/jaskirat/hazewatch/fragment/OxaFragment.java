@@ -5,15 +5,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.R;
+import com.example.anmol.hazewatch.JSONClasses.DatabaseEntryModel;
 import com.example.jaskirat.hazewatch.MessageConstants;
 import com.example.jaskirat.hazewatch.NodeApplication;
-import com.example.R;
 import com.variable.framework.dispatcher.DefaultNotifier;
 import com.variable.framework.node.NodeDevice;
 import com.variable.framework.node.OxaSensor;
@@ -32,6 +33,8 @@ public class OxaFragment extends Fragment implements OxaSensor.OxaListener {
     private TextView oxaText, oxaPortBText;
     private TextView oxaBaseLineA, oxaBaseLineB;
     private List<OxaSensor> oxaSensors;
+    static String sO2 = "1.0";
+    static String cO = "1.0";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -104,8 +107,12 @@ public class OxaFragment extends Fragment implements OxaSensor.OxaListener {
             case MessageConstants.MESSAGE_OXA_READING:
                 if(message.arg1 == NodeEnums.ModuleLocation.PortA.ordinal()) {
                     oxaText.setText(formatter.format(value) + " RAW");
+                    //Log.d("SO2 value", formatter.format(value));
+                    sO2 = formatter.format(value);
                 }else{
                     oxaPortBText.setText(formatter.format(value) + " RAW");
+                    cO = formatter.format(value);
+                    //Log.d("CO value", formatter.format(value));
                 }
                 break;
             case MessageConstants.MESSAGE_OXA_BASELINE_A:
@@ -131,5 +138,12 @@ public class OxaFragment extends Fragment implements OxaSensor.OxaListener {
 
         }
         return reading;
+    }
+
+    static public DatabaseEntryModel combineValues(DatabaseEntryModel databaseEntry){
+        Log.d("OxaFragment","Combine Values Called");
+        databaseEntry.setCO(cO);
+        databaseEntry.setSO2(sO2);
+        return databaseEntry;
     }
 }

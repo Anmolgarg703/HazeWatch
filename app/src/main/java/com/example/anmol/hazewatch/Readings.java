@@ -9,9 +9,9 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.R;
 import com.example.anmol.hazewatch.Communication.Communication;
@@ -19,6 +19,7 @@ import com.example.anmol.hazewatch.Communication.DBConnect;
 import com.example.anmol.hazewatch.Communication.Request;
 import com.example.anmol.hazewatch.JSONClasses.DatabaseEntryModel;
 import com.example.anmol.hazewatch.Utility.GPSTracker;
+import com.example.jaskirat.hazewatch.fragment.OxaFragment;
 import com.google.gson.Gson;
 
 public class Readings extends Activity implements SensorEventListener, Communication {
@@ -147,15 +148,17 @@ public class Readings extends Activity implements SensorEventListener, Communica
         Request request = new Request("addEntryToDb");
         databaseEntry.setLongitude(longitude);
         databaseEntry.setLatitude(latitude);
-        databaseEntry.setAccelerometerX(ax);
-        databaseEntry.setAccelerometerY(ay);
-        databaseEntry.setAccelerometerZ(az);
-        databaseEntry.setMagnetometerX(mx);
-        databaseEntry.setMagnetometerY(my);
-        databaseEntry.setMagnetometerZ(mz);
+        databaseEntry.setAccelerometerReadings(ax, ay, az);
+        databaseEntry.setMagnetometerReadings(mx, my, mz);
+        //OxaFragment oxaFragment = new OxaFragment();
+        //Toast.makeText(this, "Calling Oxa fragment", Toast.LENGTH_SHORT).show();
+        Log.d("Readings","Calling Oxa Fragment");
+        databaseEntry = OxaFragment.combineValues(databaseEntry);
         Gson gson = new Gson();
         request.setRequest(gson.toJson(databaseEntry));
         String requestObject = gson.toJson(request);
+        Log.d("Readings", requestObject);
+        //Toast.makeText(this, requestObject,Toast.LENGTH_SHORT).show();
         new DBConnect(this, requestObject).execute();
     }
 
@@ -169,6 +172,6 @@ public class Readings extends Activity implements SensorEventListener, Communica
 
     @Override
     public void onCompletion(String response) {
-        Toast.makeText(this,response,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Hello",Toast.LENGTH_SHORT).show();
     }
 }
