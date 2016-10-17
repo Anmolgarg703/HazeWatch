@@ -2,6 +2,7 @@ package com.example.anmol.hazewatch;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -39,11 +40,16 @@ public class Readings extends Activity implements SensorEventListener, Communica
     private float mx, my, mz;
     private float pressureReading, temperatureReading;
 
+    private static final String PREFERENCE_NAME = "LoginActivity";
+    private SharedPreferences mPrefs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_readings);
+
+        mPrefs = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
 
         accelerometer = (TextView) findViewById(R.id.accelerometer);
         magnetometer = (TextView) findViewById(R.id.magnetometer);
@@ -56,9 +62,9 @@ public class Readings extends Activity implements SensorEventListener, Communica
             @Override
             public void run() {
                 getGPSLocation();
-                handler.postDelayed(this, 3000);
+                handler.postDelayed(this, 10000);
             }
-        }, 2000);
+        }, 5000);
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
@@ -144,14 +150,19 @@ public class Readings extends Activity implements SensorEventListener, Communica
     }
 
     private void addEntryToDb() {
+
         DatabaseEntryModel databaseEntry = new DatabaseEntryModel();
         Request request = new Request("addEntryToDb");
         databaseEntry.setLongitude(longitude);
         databaseEntry.setLatitude(latitude);
         databaseEntry.setAccelerometerReadings(ax, ay, az);
         databaseEntry.setMagnetometerReadings(mx, my, mz);
-        //OxaFragment oxaFragment = new OxaFragment();
-        //Toast.makeText(this, "Calling Oxa fragment", Toast.LENGTH_SHORT).show();
+        String phoneNumber = mPrefs.getString("Phone","UnknownUser");
+        //Toast.makeText(this, "Username "+ username,Toast.LENGTH_SHORT).show();
+        databaseEntry.setUsername(phoneNumber);
+        Long tsLong = System.currentTimeMillis()/1000;
+        String timestamp = tsLong.toString();
+        databaseEntry.setTimestamp(timestamp);
         Log.d("Readings","Calling Oxa Fragment");
         databaseEntry = OxaFragment.combineValues(databaseEntry);
         Gson gson = new Gson();

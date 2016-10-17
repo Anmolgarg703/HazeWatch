@@ -67,7 +67,9 @@ public class MainActivity extends AppCompatActivity implements Communication {
         UserLoginModel userLogin = gson.fromJson(response, UserLoginModel.class);
         if(userLogin.getLogin().equals("1")){
             mPrefs.edit().putBoolean(LOGIN, true).commit();
-            mPrefs.edit().putString("Name", userLogin.getPhone());
+            //Toast.makeText(this,"Phone Number" + userLogin.getPhone(),Toast.LENGTH_SHORT).show();
+            mPrefs.edit().putString("Name", userLogin.getName()).commit();
+            mPrefs.edit().putString("Phone", userLogin.getPhone()).commit();
             Intent mainOptionsFragment = new Intent(this, SensorActivity.class);
             startActivity(mainOptionsFragment);
         }

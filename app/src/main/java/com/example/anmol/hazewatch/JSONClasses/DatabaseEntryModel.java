@@ -17,6 +17,7 @@ public class DatabaseEntryModel {
     float temperature;
     String humidity;
     String sound;
+    String timestamp;
 
     //GPS Location
     double latitude;
@@ -173,5 +174,13 @@ public class DatabaseEntryModel {
 
     public void setCO(String CO) {
         this.CO = CO;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }
