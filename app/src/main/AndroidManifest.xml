@@ -15,19 +15,42 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".anmol.hazewatch.MainActivity">
+
+
+        <activity
+            android:name=".YourActivity"
+            android:theme="@style/YourTheme" />
+        <!-- Splash screen -->
+        <activity
+            android:name=".jaskirat.hazewatch.SplashScreen"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity android:name=".anmol.hazewatch.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".anmol.hazewatch.SignUpActivity" />
         <activity android:name=".jaskirat.hazewatch.SensorActivity" />
         <activity android:name=".anmol.hazewatch.Readings" />

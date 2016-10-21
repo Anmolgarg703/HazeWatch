@@ -9,11 +9,21 @@
         <item name="colorControlActivated">@color/colorAccent</item>
     </style>
 
+    <style name="YourAnimation.Activity" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@transition/fadein</item>
+
+        <item name="android:windowExitAnimation">@transition/fadeout</item>
+    </style>
+
     <style name="MyCustomToggleButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/btn_toggle</item>
         <item name="android:textOff"></item>
         <item name="android:textOn"></item>
+    </style>
+    <style name="YourTheme" parent="android:Theme.Translucent.NoTitleBar">
+        ...
+        <item name="android:windowAnimationStyle">@style/YourAnimation.Activity</item>
     </style>
 </resources>

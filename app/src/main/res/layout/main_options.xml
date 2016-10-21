@@ -1,115 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:orientation="vertical"
-        >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@drawable/background_image"
+    >
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+
+
+
+    <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:src="@drawable/node"
         android:text="NODE Connect"
         android:id="@+id/btnPairedNodes"
         android:layout_weight="1"
         android:layout_gravity="center"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="55dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_toStartOf="@+id/btnRefreshSensors" />
 
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+
+    <ImageView
+        android:id="@+id/btnRefreshSensors"
+        android:src="@drawable/refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Refresh Sensors "
-        android:id="@+id/btnRefreshSensors"
-        android:layout_below="@+id/btnPairedNodes"
-        android:layout_alignLeft="@+id/btnPairedNodes"
-        android:layout_alignStart="@+id/btnPairedNodes"
-        android:layout_marginTop="46dp"
-        android:layout_alignRight="@+id/btnPairedNodes"
-        android:layout_alignEnd="@+id/btnPairedNodes" />
+        android:layout_marginEnd="39dp"
+        android:layout_alignParentEnd="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <ImageView
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stream Motion"
+        android:src="@drawable/stream_motion"
         android:id="@+id/btnMotion"
         android:layout_weight="1"
-        android:layout_below="@+id/btnRefreshSensors"
-        android:layout_toRightOf="@+id/btnOxa"
-        android:layout_toEndOf="@+id/btnOxa"
         android:layout_marginLeft="53dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="29dp" />
+        android:layout_above="@+id/reading"
+        android:layout_alignEnd="@+id/reading" />
 
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+    <ImageView
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Stream OXA"
+        android:src="@drawable/stream_oxa"
         android:id="@+id/btnOxa"
         android:layout_weight="1"
-        android:layout_alignTop="@+id/btnMotion"
-        android:layout_alignLeft="@+id/btnRefreshSensors"
-        android:layout_alignStart="@+id/btnRefreshSensors"
         android:layout_marginLeft="34dp"
-        android:layout_marginStart="34dp" />
+        android:layout_below="@+id/btnPairedNodes"
+        android:layout_toStartOf="@+id/btnMotion" />
 
 
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <ImageView
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Readings"
+        android:src="@drawable/readings"
         android:id="@+id/reading"
         android:layout_weight="1"
-        android:layout_alignBaseline="@+id/logout"
-        android:layout_alignBottom="@+id/logout"
-        android:layout_toEndOf="@+id/textView6" />
+        android:layout_alignTop="@+id/all"
+        android:layout_toEndOf="@+id/btnPairedNodes" />
 
-    <Button
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="All Readings"
+        android:src="@drawable/all_readings"
         android:id="@+id/all"
-        android:layout_above="@+id/reading"
-        android:layout_toEndOf="@+id/textView6" />
+        android:layout_below="@+id/btnOxa"
+        android:layout_alignStart="@+id/btnOxa" />
 
-    <Button
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout"
+        android:src="@drawable/logout"
         android:id="@+id/logout"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/btnMotion"
-        android:layout_marginBottom="73dp" />
+        android:layout_below="@+id/syncDatabase"
+        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/textView6"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/btnOxa" />
 
-    <Button
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sync Database"
+        android:src="@drawable/sync"
         android:id="@+id/syncDatabase"
         android:layout_below="@+id/reading"
-        android:layout_alignStart="@+id/reading" />
+        android:layout_centerHorizontal="true" />
+
 
 
 </RelativeLayout>
