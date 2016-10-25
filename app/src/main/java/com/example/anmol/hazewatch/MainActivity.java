@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements Communication {
     private EditText mPassword;
     private SharedPreferences mPrefs;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,11 @@ public class MainActivity extends AppCompatActivity implements Communication {
     public void signUp(View v){
         Intent signUpRedirect = new Intent(this,SignUpActivity.class);
         startActivity(signUpRedirect);
+    }
+
+    public void developers(View v){
+        Intent developer = new Intent(this,DeveloperActivity.class);
+        startActivity(developer);
     }
 
     public void onCompletion(String response) {
