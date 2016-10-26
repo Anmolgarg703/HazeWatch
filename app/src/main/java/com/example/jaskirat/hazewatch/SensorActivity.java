@@ -32,8 +32,6 @@ import com.variable.framework.node.BaseSensor;
 import com.variable.framework.node.NodeDevice;
 import com.variable.framework.node.enums.NodeEnums;
 
-//import com.example.anmol.hazewatch.AllReadings;
-
 
 
 public class SensorActivity extends FragmentActivity implements View.OnClickListener, NodeDevice.SensorDetector{

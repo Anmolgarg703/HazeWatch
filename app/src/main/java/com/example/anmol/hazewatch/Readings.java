@@ -112,7 +112,7 @@ public class Readings extends Activity implements SensorEventListener, Communica
     @Override
     protected void onResume() {
         super.onResume();
-        //getGPSLocation();
+        getGPSLocation();
     }
 
     @Override
