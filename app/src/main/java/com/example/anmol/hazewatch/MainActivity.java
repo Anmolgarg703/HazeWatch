@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements Communication {
         mPrefs = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
 
         boolean isLogin = mPrefs.getBoolean(LOGIN,false);
-        if(!isLogin){
+        if(isLogin){
             Intent sensorActivity = new Intent(this, SensorActivity.class);
             startActivity(sensorActivity);
         }
@@ -78,10 +78,20 @@ public class MainActivity extends AppCompatActivity implements Communication {
             mPrefs.edit().putString("Name", userLogin.getName()).commit();
             mPrefs.edit().putString("Phone", userLogin.getPhone()).commit();
             Intent mainOptionsFragment = new Intent(this, SensorActivity.class);
+            mainOptionsFragment.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mainOptionsFragment);
+            finish();
         }
         else{
             Toast.makeText(this,"Login failed",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

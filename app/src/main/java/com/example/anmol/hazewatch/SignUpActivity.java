@@ -1,6 +1,7 @@
 package com.example.anmol.hazewatch;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.example.anmol.hazewatch.Communication.Communication;
 import com.example.anmol.hazewatch.Communication.DBConnect;
 import com.example.anmol.hazewatch.Communication.Request;
 import com.example.anmol.hazewatch.JSONClasses.UserSignUpModel;
+import com.example.jaskirat.hazewatch.SensorActivity;
 import com.google.gson.Gson;
 
 import java.util.regex.Matcher;
@@ -25,6 +27,10 @@ public class SignUpActivity extends AppCompatActivity implements Communication {
     private EditText mPassword;
     private EditText mConfirmPassword;
 
+    private static final String LOGIN = "isLogin";
+    private static final String PREFERENCE_NAME = "LoginActivity";
+    private SharedPreferences mPrefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +40,8 @@ public class SignUpActivity extends AppCompatActivity implements Communication {
         mPhone = (EditText)findViewById(R.id.phone);
         mPassword = (EditText)findViewById(R.id.password);
         mConfirmPassword = (EditText)findViewById(R.id.password2);
+
+        mPrefs = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
     }
 
     public void processForm(View v){
@@ -140,8 +148,13 @@ public class SignUpActivity extends AppCompatActivity implements Communication {
         }
         else if(userSignUp.getSignUp().equals("1")){
             Toast.makeText(this,"Successfully Signed Up",Toast.LENGTH_SHORT).show();
-            Intent readings = new Intent(this, Readings.class);
+            mPrefs.edit().putBoolean(LOGIN, true).commit();
+            mPrefs.edit().putString("Name", userSignUp.getName()).commit();
+            mPrefs.edit().putString("Phone", userSignUp.getPhone()).commit();
+            Intent readings = new Intent(this, SensorActivity.class);
+            readings.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(readings);
+            finish();
         }
         else{
             Toast.makeText(this,"Some error",Toast.LENGTH_SHORT).show();

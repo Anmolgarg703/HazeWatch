@@ -41,13 +41,17 @@ public class SyncDatabase extends AppCompatActivity implements Communication{
             if(mydb.getNumberOfRows()==0){
                 Toast.makeText(this, "All entries successfully synced", Toast.LENGTH_SHORT).show();
                 Intent mainOptions = new Intent(this, SensorActivity.class);
+                mainOptions.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(mainOptions);
+                finish();
             }
         }
         else {
             Toast.makeText(getApplicationContext(), "You are not connected to the internet", Toast.LENGTH_SHORT).show();
             Intent mainOptions = new Intent(this, SensorActivity.class);
+            mainOptions.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mainOptions);
+            finish();
         }
     }
 
@@ -67,21 +71,6 @@ public class SyncDatabase extends AppCompatActivity implements Communication{
                 return false;
             }
         }
-
-            /*if (connec != null && (
-                    (connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) ||
-                            (connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED))) {
-
-                Toast.makeText(this,"You are connected to the internet",Toast.LENGTH_SHORT).show();
-
-            } else if (connec != null && (
-                    (connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.DISCONNECTED) ||
-                            (connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.DISCONNECTED ))) {
-
-                //Not connected.
-                Toast.makeText(getApplicationContext(), "You must be connected to the internet", Toast.LENGTH_LONG).show();
-
-            }*/
     }
 
     @Override

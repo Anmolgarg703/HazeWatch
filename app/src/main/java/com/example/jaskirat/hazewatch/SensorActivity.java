@@ -11,7 +11,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -114,21 +113,12 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
             startActivity(internalSensorReadings);
         }
 
-        else if(view.getId() == R.id.all){
-           //Intent allReadings = new Intent(this, AllReadings.class);
-           //startActivity(allReadings);
-            // Map point based on address
-            Uri location = Uri.parse("geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California");
-            // Or map point based on latitude/longitude
-            // Uri location = Uri.parse("geo:37.422219,-122.08364?z=14"); // z param is zoom level
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
-            startActivity(mapIntent);
-        }
-
         else if(view.getId() == R.id.logout){
             mPrefs.edit().putBoolean(LOGIN,false).commit();
             Intent logout = new Intent(this, MainActivity.class);
+            logout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(logout);
+            finish();
         }
 
         else if(!isNodeConnected(node))

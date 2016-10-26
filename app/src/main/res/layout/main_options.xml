@@ -43,9 +43,9 @@
         android:src="@drawable/stream_motion"
         android:id="@+id/btnMotion"
         android:layout_weight="1"
-        android:layout_marginLeft="53dp"
         android:layout_above="@+id/reading"
-        android:layout_alignEnd="@+id/reading" />
+        android:layout_toRightOf="@+id/btnPairedNodes"
+        android:layout_toEndOf="@+id/btnPairedNodes" />
 
 
     <ImageView
@@ -56,8 +56,8 @@
         android:src="@drawable/stream_oxa"
         android:id="@+id/btnOxa"
         android:layout_weight="1"
-        android:layout_marginLeft="34dp"
         android:layout_below="@+id/btnPairedNodes"
+        android:layout_toLeftOf="@+id/btnMotion"
         android:layout_toStartOf="@+id/btnMotion" />
 
 
@@ -70,17 +70,9 @@
         android:src="@drawable/readings"
         android:id="@+id/reading"
         android:layout_weight="1"
-        android:layout_alignTop="@+id/all"
-        android:layout_toEndOf="@+id/btnPairedNodes" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="All Readings"
-        android:src="@drawable/all_readings"
-        android:id="@+id/all"
         android:layout_below="@+id/btnOxa"
-        android:layout_alignStart="@+id/btnOxa" />
+        android:layout_alignLeft="@+id/logout"
+        android:layout_alignStart="@+id/logout" />
 
     <ImageView
         android:layout_width="wrap_content"
