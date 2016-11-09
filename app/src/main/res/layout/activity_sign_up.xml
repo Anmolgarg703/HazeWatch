@@ -10,20 +10,10 @@
     tools:context="com.example.anmol.hazewatch.SignUpActivity"
     android:background="@drawable/background_image">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:src="@drawable/title"
-        android:id="@+id/textView"
-        android:layout_centerHorizontal="true"
-        />
-
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView">
+        android:layout_height="wrap_content">
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -99,6 +89,92 @@
         android:layout_below="@+id/input_layout_password" />
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_layout_confirm_password">
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="5"
+        android:id="@+id/height"
+        android:hint="Height(cms)"
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_below="@+id/input_layout_confirm_password"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/input_layout_height"
+        android:layout_alignLeft="@+id/signUp"
+        android:layout_alignStart="@+id/signUp"
+        android:layout_marginLeft="58dp"
+        android:layout_marginStart="58dp">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="5"
+            android:hint="Weight(kgs)"
+            android:id="@+id/weight"
+            android:layout_alignBottom="@+id/input_layout_height"
+            android:layout_alignRight="@+id/input_layout_height"
+            android:layout_alignEnd="@+id/input_layout_height"
+            android:layout_marginRight="46dp"
+            android:layout_marginEnd="46dp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_layout_height">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="5"
+            android:id="@+id/age"
+            android:hint="Age(years)"
+            android:layout_marginLeft="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_below="@+id/input_layout_height"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/input_layout_age"
+        android:layout_alignLeft="@+id/signUp"
+        android:layout_alignStart="@+id/signUp"
+        android:layout_marginLeft="58dp"
+        android:layout_marginStart="58dp">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:hint="Gender"
+            android:id="@+id/gender"
+            android:layout_alignBottom="@+id/input_layout_age"
+            android:layout_alignRight="@+id/input_layout_age"
+            android:layout_alignEnd="@+id/input_layout_age"
+            android:layout_marginRight="46dp"
+            android:layout_marginEnd="46dp" />
+    </android.support.design.widget.TextInputLayout>
+
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -106,9 +182,8 @@
         android:src="@drawable/signup"
         android:id="@+id/signUp"
         android:onClick="processForm"
-        android:layout_below="@+id/input_layout_confirm_password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

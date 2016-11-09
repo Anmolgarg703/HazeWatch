@@ -8,6 +8,10 @@ public class UserSignUpModel {
     String email;
     String phone;
     String password;
+    String height;
+    String weight;
+    String age;
+    String gender;
     String signUp;
     String alreadyExists;
 
@@ -19,13 +23,15 @@ public class UserSignUpModel {
         this.alreadyExists = alreadyExists;
     }
 
-
-
-    public UserSignUpModel(String name, String email, String phone, String password){
+    public UserSignUpModel(String name, String email, String phone, String password, String height, String weight, String age, String gender){
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.height = height;
+        this.weight = weight;
+        this.age = age;
+        this.gender = gender;
     }
 
     public String getName() {

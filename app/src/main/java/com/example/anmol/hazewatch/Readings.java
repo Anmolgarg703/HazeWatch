@@ -45,6 +45,7 @@ public class Readings extends Activity implements SensorEventListener, Communica
     private float mx, my, mz;
     private float pressureReading, temperatureReading;
 
+    private static final String LOGIN = "isLogin";
     private static final String PREFERENCE_NAME = "LoginActivity";
     private SharedPreferences mPrefs;
 
@@ -147,14 +148,20 @@ public class Readings extends Activity implements SensorEventListener, Communica
     }
 
     public void getGPSLocation() {
-        gpsTracker = new GPSTracker(Readings.this);
-        if (gpsTracker.canGetLocation()) {
-            latitude = gpsTracker.getLatitude();
-            longitude = gpsTracker.getLongitude();
-            gps.setText("Latitude: " + latitude + "\nLongitude: " + longitude);
-            addEntryToDb();
-        } else {
-            gpsTracker.showSettingsAlert();
+        boolean isLogin = mPrefs.getBoolean(LOGIN,false);
+        if(isLogin) {
+            gpsTracker = new GPSTracker(Readings.this);
+            if (gpsTracker.canGetLocation()) {
+                latitude = gpsTracker.getLatitude();
+                longitude = gpsTracker.getLongitude();
+                gps.setText("Latitude: " + latitude + "\nLongitude: " + longitude);
+                addEntryToDb();
+            } else {
+                gpsTracker.showSettingsAlert();
+            }
+        }
+        else{
+            finish();
         }
     }
 

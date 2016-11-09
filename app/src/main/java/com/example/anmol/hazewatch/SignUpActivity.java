@@ -26,6 +26,10 @@ public class SignUpActivity extends AppCompatActivity implements Communication {
     private EditText mPhone;
     private EditText mPassword;
     private EditText mConfirmPassword;
+    private EditText mHeight;
+    private EditText mWeight;
+    private EditText mAge;
+    private EditText mGender;
 
     private static final String LOGIN = "isLogin";
     private static final String PREFERENCE_NAME = "LoginActivity";
@@ -40,6 +44,10 @@ public class SignUpActivity extends AppCompatActivity implements Communication {
         mPhone = (EditText)findViewById(R.id.phone);
         mPassword = (EditText)findViewById(R.id.password);
         mConfirmPassword = (EditText)findViewById(R.id.password2);
+        mHeight = (EditText) findViewById(R.id.height);
+        mWeight = (EditText) findViewById(R.id.weight);
+        mAge = (EditText) findViewById(R.id.age);
+        mGender = (EditText) findViewById(R.id.gender);
 
         mPrefs = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
     }
@@ -50,6 +58,10 @@ public class SignUpActivity extends AppCompatActivity implements Communication {
         String phone = mPhone.getText().toString();
         String password = mPassword.getText().toString();
         String confirmPassword = mConfirmPassword.getText().toString();
+        String height = mHeight.getText().toString();
+        String weight = mWeight.getText().toString();
+        String age = mAge.getText().toString();
+        String gender = mGender.getText().toString();
         
         if(validateName(name)){
             if(validateEmail(email)){
@@ -57,7 +69,8 @@ public class SignUpActivity extends AppCompatActivity implements Communication {
                     if(validatePassword(password)){
                         if(passwordsMatch(password,confirmPassword)){
 
-                            signUpUser(name,email,phone,password);
+                            UserSignUpModel userSignUp = new UserSignUpModel(name, email, phone, password, height, weight, age, gender);
+                            signUpUser(userSignUp);
 
                         }else{
                             Toast.makeText(this,"Passwords do not match", Toast.LENGTH_SHORT).show();
@@ -84,8 +97,8 @@ public class SignUpActivity extends AppCompatActivity implements Communication {
         }
     }
 
-    private void signUpUser(String name, String email, String phone, String password) {
-        UserSignUpModel userSignUp = new UserSignUpModel(name, email, phone, password);
+    private void signUpUser(UserSignUpModel userSignUp) {
+        //UserSignUpModel userSignUp = new UserSignUpModel(name, email, phone, password);
         Request request = new Request("userSignUp");
         Gson gson = new Gson();
         request.setRequest(gson.toJson(userSignUp));
