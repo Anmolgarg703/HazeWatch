@@ -1,6 +1,7 @@
 /* See http://variableinc.com/terms-use-license for the full license governing this code. */
 package com.example.jaskirat.hazewatch.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,7 +13,7 @@ import com.example.R;
 /**
  * Created by jaskirat on 09/07/16.
  */
-public class MainOptionsFragment extends Fragment {
+public class MainOptionsFragment extends Fragment  {
     public static final String TAG = MainOptionsFragment.class.getName();
 
     private View.OnClickListener onClickListener;
@@ -23,6 +24,7 @@ public class MainOptionsFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View root = inflater.inflate(R.layout.main_options, null, false);
+
 
 
         ButtonClickHandler clickHandler = new ButtonClickHandler();

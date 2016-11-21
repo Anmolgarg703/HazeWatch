@@ -11,4 +11,6 @@
     <string name="err_msg_email">Enter valid email address</string>
     <string name="err_msg_password">Enter the password</string>
     <string name="err_msg_phone">Enter the phone</string>
+    <string name="spinner">Spinner</string>
+     <string name="spinner_title">Choose Activity</string>
 </resources>

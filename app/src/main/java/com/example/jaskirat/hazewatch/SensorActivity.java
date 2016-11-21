@@ -90,6 +90,12 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
 
     //endregion
 
+    public void spinner(View v)
+    {
+        Intent intent= new Intent(this,com.example.jaskirat.hazewatch.AndroidSpinnerActivity.class);
+        startActivity(intent);
+
+    }
     @Override
     public void onClick(View view) {
         NodeDevice node = NodeApplication.getActiveNode();

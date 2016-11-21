@@ -11,7 +11,15 @@
     android:background="@drawable/background_image"
     >
 
-
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Activity"
+        android:id="@+id/btnActivity"
+        android:onClick="spinner"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
     <ImageView
@@ -32,8 +40,11 @@
         android:src="@drawable/refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="39dp"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginEnd="48dp"
+        android:layout_above="@+id/btnMotion"
+        android:layout_alignRight="@+id/btnActivity"
+        android:layout_alignEnd="@+id/btnActivity"
+        android:layout_marginRight="48dp" />
 
     <ImageView
 
@@ -71,8 +82,10 @@
         android:id="@+id/reading"
         android:layout_weight="1"
         android:layout_below="@+id/btnOxa"
-        android:layout_alignLeft="@+id/logout"
-        android:layout_alignStart="@+id/logout" />
+        android:layout_alignLeft="@+id/btnPairedNodes"
+        android:layout_alignStart="@+id/btnPairedNodes"
+        android:layout_alignRight="@+id/btnOxa"
+        android:layout_alignEnd="@+id/btnOxa" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -80,8 +93,11 @@
         android:text="Logout"
         android:src="@drawable/logout"
         android:id="@+id/logout"
-        android:layout_below="@+id/syncDatabase"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/btnActivity"
+        android:layout_alignRight="@+id/btnActivity"
+        android:layout_alignEnd="@+id/btnActivity"
+        android:layout_toRightOf="@+id/reading"
+        android:layout_toEndOf="@+id/reading" />
 
 
     <ImageView
@@ -90,8 +106,9 @@
         android:text="Sync Database"
         android:src="@drawable/sync"
         android:id="@+id/syncDatabase"
-        android:layout_below="@+id/reading"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/logout"
+        android:layout_toRightOf="@+id/btnOxa"
+        android:layout_toEndOf="@+id/btnOxa" />
 
 
 
