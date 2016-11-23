@@ -35,6 +35,8 @@ public class OxaFragment extends Fragment implements OxaSensor.OxaListener {
     private List<OxaSensor> oxaSensors;
     static String sO2 = "1.0";
     static String cO = "1.0";
+    static String COBaseline = "1.0";
+    static String SO2Baseline = "1.0";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -117,10 +119,12 @@ public class OxaFragment extends Fragment implements OxaSensor.OxaListener {
                 break;
             case MessageConstants.MESSAGE_OXA_BASELINE_A:
                 oxaBaseLineA.setText(message.obj.toString());
+                SO2Baseline = message.obj.toString();
                 break;
             
             case MessageConstants.MESSAGE_OXA_BASELINE_B:
                 oxaBaseLineB.setText(message.obj.toString());
+                COBaseline = message.obj.toString();
                 break;
         }
       }
@@ -144,6 +148,8 @@ public class OxaFragment extends Fragment implements OxaSensor.OxaListener {
         Log.d("OxaFragment","Combine Values Called");
         databaseEntry.setCO(cO);
         databaseEntry.setSO2(sO2);
+        databaseEntry.setCOBaseline(COBaseline);
+        databaseEntry.setSO2Baseline(SO2Baseline);
         return databaseEntry;
     }
 }

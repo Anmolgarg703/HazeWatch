@@ -40,6 +40,8 @@ public class Readings extends Activity implements SensorEventListener, Communica
     GPSTracker gpsTracker;
     private double latitude;
     private double longitude;
+    private float speed;
+
 
     private float ax, ay, az;
     private float mx, my, mz;
@@ -47,10 +49,12 @@ public class Readings extends Activity implements SensorEventListener, Communica
 
     private static final String LOGIN = "isLogin";
     private static final String PREFERENCE_NAME = "LoginActivity";
+    private static final String THREAD_COUNT = "ThreadCount";
     private SharedPreferences mPrefs;
-
     DBHelper myDb;
-
+    private static final String ACTIVITY= "Activity";
+    private String activity;
+    final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,21 +64,24 @@ public class Readings extends Activity implements SensorEventListener, Communica
         myDb = new DBHelper(this);
 
         mPrefs = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
-
         accelerometer = (TextView) findViewById(R.id.accelerometer);
         magnetometer = (TextView) findViewById(R.id.magnetometer);
         pressure = (TextView) findViewById(R.id.pressure);
         temperature = (TextView) findViewById(R.id.temperature);
         gps = (TextView) findViewById(R.id.gps);
 
-        final Handler handler = new Handler();
+        int threadCount = mPrefs.getInt(THREAD_COUNT, 0);
+        if(threadCount == 0){
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 getGPSLocation();
-                handler.postDelayed(this, 10000);
+                handler.postDelayed(this, 2000);
             }
-        }, 10000);
+        }, 2000);
+            threadCount++;
+        }
+        mPrefs.edit().putInt(THREAD_COUNT, threadCount).commit();
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
@@ -154,7 +161,8 @@ public class Readings extends Activity implements SensorEventListener, Communica
             if (gpsTracker.canGetLocation()) {
                 latitude = gpsTracker.getLatitude();
                 longitude = gpsTracker.getLongitude();
-                gps.setText("Latitude: " + latitude + "\nLongitude: " + longitude);
+                speed=  gpsTracker.getSpeed();
+                gps.setText("Latitude: " + latitude + "\nLongitude: " + longitude + "\nGPSspeed: " + speed);
                 addEntryToDb();
             } else {
                 gpsTracker.showSettingsAlert();
@@ -170,8 +178,12 @@ public class Readings extends Activity implements SensorEventListener, Communica
         Request request = new Request("addEntryToDb");
         databaseEntry.setLongitude(longitude);
         databaseEntry.setLatitude(latitude);
+        databaseEntry.setGpsSpeed(speed);
         databaseEntry.setAccelerometerReadings(ax, ay, az);
         databaseEntry.setMagnetometerReadings(mx, my, mz);
+        activity = mPrefs.getString(ACTIVITY, "Driving");
+        databaseEntry.setActivity(activity);
+
         String phoneNumber = mPrefs.getString("Phone", "UnknownUser");
         databaseEntry.setUsername(phoneNumber);
         Long tsLong = System.currentTimeMillis() / 1000;
@@ -181,12 +193,15 @@ public class Readings extends Activity implements SensorEventListener, Communica
         databaseEntry = OxaFragment.combineValues(databaseEntry);
         Gson gson = new Gson();
         request.setRequest(gson.toJson(databaseEntry));
+        //Log.d("request ",request.toString());
         String requestObject = gson.toJson(request);
+        Log.d("request testing ",requestObject);
         if (checkInternetConnection()) {
             new DBConnect(this, requestObject).execute();
         }
         else {
             myDb.insertData(requestObject);
+            //Log.d("request testing ",requestObject);
         }
     }
 

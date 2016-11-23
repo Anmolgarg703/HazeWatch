@@ -18,6 +18,9 @@ public class DatabaseEntryModel {
     String humidity;
     String sound;
     String timestamp;
+    float gpsSpeed;
+    String activity;
+
 
     //GPS Location
     double latitude;
@@ -27,6 +30,8 @@ public class DatabaseEntryModel {
     //Node Sensors
     String SO2;
     String CO;
+    String COBaseline;
+    String SO2Baseline;
 
     public void setAccelerometerReadings(float ax, float ay, float az){
         this.accelerometerX = ax;
@@ -182,5 +187,37 @@ public class DatabaseEntryModel {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
+
+    public float getGpsSpeed() {
+        return gpsSpeed;
+    }
+
+    public void setGpsSpeed(float gpsSpeed) {
+        this.gpsSpeed = gpsSpeed;
+    }
+
+    public String getCOBaseline() {
+        return COBaseline;
+    }
+
+    public void setCOBaseline(String COBaseline) {
+        this.COBaseline = COBaseline;
+    }
+
+    public String getSO2Baseline() {
+        return SO2Baseline;
+    }
+
+    public void setSO2Baseline(String SO2Baseline) {
+        this.SO2Baseline = SO2Baseline;
     }
 }

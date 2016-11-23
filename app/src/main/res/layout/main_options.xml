@@ -23,15 +23,16 @@
 
 
     <ImageView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/node"
         android:text="NODE Connect"
         android:id="@+id/btnPairedNodes"
         android:layout_weight="1"
         android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
-        android:layout_toStartOf="@+id/btnRefreshSensors" />
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/logout"
+        android:layout_toStartOf="@+id/logout" />
 
 
 
@@ -54,22 +55,22 @@
         android:src="@drawable/stream_motion"
         android:id="@+id/btnMotion"
         android:layout_weight="1"
-        android:layout_above="@+id/reading"
-        android:layout_toRightOf="@+id/btnPairedNodes"
-        android:layout_toEndOf="@+id/btnPairedNodes" />
+        android:layout_below="@+id/btnPairedNodes"
+        android:layout_alignLeft="@+id/btnRefreshSensors"
+        android:layout_alignStart="@+id/btnRefreshSensors" />
 
 
     <ImageView
 
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stream OXA"
         android:src="@drawable/stream_oxa"
         android:id="@+id/btnOxa"
         android:layout_weight="1"
-        android:layout_below="@+id/btnPairedNodes"
-        android:layout_toLeftOf="@+id/btnMotion"
-        android:layout_toStartOf="@+id/btnMotion" />
+        android:layout_alignTop="@+id/btnMotion"
+        android:layout_alignLeft="@+id/reading"
+        android:layout_alignStart="@+id/reading" />
 
 
 
@@ -78,14 +79,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Readings"
+
         android:src="@drawable/readings"
         android:id="@+id/reading"
         android:layout_weight="1"
+
         android:layout_below="@+id/btnOxa"
-        android:layout_alignLeft="@+id/btnPairedNodes"
-        android:layout_alignStart="@+id/btnPairedNodes"
-        android:layout_alignRight="@+id/btnOxa"
-        android:layout_alignEnd="@+id/btnOxa" />
+        android:layout_toLeftOf="@+id/logout"
+        android:layout_toStartOf="@+id/logout" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -94,10 +95,8 @@
         android:src="@drawable/logout"
         android:id="@+id/logout"
         android:layout_above="@+id/btnActivity"
-        android:layout_alignRight="@+id/btnActivity"
-        android:layout_alignEnd="@+id/btnActivity"
-        android:layout_toRightOf="@+id/reading"
-        android:layout_toEndOf="@+id/reading" />
+        android:layout_alignRight="@+id/syncDatabase"
+        android:layout_alignEnd="@+id/syncDatabase" />
 
 
     <ImageView
@@ -107,8 +106,8 @@
         android:src="@drawable/sync"
         android:id="@+id/syncDatabase"
         android:layout_above="@+id/logout"
-        android:layout_toRightOf="@+id/btnOxa"
-        android:layout_toEndOf="@+id/btnOxa" />
+        android:layout_alignLeft="@+id/btnMotion"
+        android:layout_alignStart="@+id/btnMotion" />
 
 
 

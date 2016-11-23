@@ -34,6 +34,7 @@ public class SyncDatabase extends AppCompatActivity implements Communication{
             ArrayList dataEntries = mydb.getAllEntries();
             for(Object dataEntry : dataEntries){
                 data = dataEntry.toString();
+                Log.d("Testing sync database", data);
                 new DBConnect(this, data).execute();
                 mydb.deleteRecord(data);
                 Log.d("Sync Db","Number of Rows: "+ mydb.getNumberOfRows());

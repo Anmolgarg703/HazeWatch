@@ -1,7 +1,6 @@
 /* See http://variableinc.com/terms-use-license for the full license governing this code. */
 package com.example.jaskirat.hazewatch.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

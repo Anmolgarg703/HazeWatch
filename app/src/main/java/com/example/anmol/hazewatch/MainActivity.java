@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements Communication {
         mPrefs = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
 
         boolean isLogin = mPrefs.getBoolean(LOGIN,false);
-        if(!isLogin){
+        if(isLogin){
             Intent sensorActivity = new Intent(this, SensorActivity.class);
             startActivity(sensorActivity);
         }

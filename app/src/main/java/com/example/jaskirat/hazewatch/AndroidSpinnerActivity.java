@@ -7,19 +7,25 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.content.SharedPreferences;
+
 
 import com.example.R;
 
 import java.util.ArrayList;
 import java.util.List;
 public class AndroidSpinnerActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private SharedPreference sharedPreference;
+
+    private SharedPreferences mPrefs;
+
+    private static final String PREFERENCE_NAME = "LoginActivity";
+    private static final String ACTIVITY= "Activity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spinner);
 
-        sharedPreference = new SharedPreference();
+        mPrefs = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
         // AndroidSpinnerActivity element
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -46,8 +52,8 @@ public class AndroidSpinnerActivity extends AppCompatActivity implements Adapter
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
 
-        String storedValue= sharedPreference.getValue(this);
-        Toast.makeText(getBaseContext(), "earlier Selected: " + storedValue, Toast.LENGTH_LONG).show();
+        String storedValue= mPrefs.getString(ACTIVITY, "Driving");
+        Toast.makeText(getBaseContext(), "earlier Selected: " + storedValue, Toast.LENGTH_SHORT).show();
         spinner.setSelection(getIndex(spinner, storedValue));
     }
     private int getIndex(Spinner spinner, String myString){
@@ -62,13 +68,16 @@ public class AndroidSpinnerActivity extends AppCompatActivity implements Adapter
         return index;
     }
 
+    public void submitback (View v)
+    {
+        finish();
+    }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
 
-        // Save the text in SharedPreference
-        sharedPreference.save(this,item);
+        mPrefs.edit().putString(ACTIVITY, item).commit();
 
         // Showing selected spinner item
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
