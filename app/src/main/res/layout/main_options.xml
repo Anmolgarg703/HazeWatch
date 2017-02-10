@@ -11,15 +11,15 @@
     android:background="@drawable/background_image"
     >
 
-    <Button
-        android:layout_width="fill_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Activity"
         android:id="@+id/btnActivity"
         android:onClick="spinner"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:src="@drawable/activity"
+        android:layout_alignTop="@+id/logout"
+        android:layout_toLeftOf="@+id/reading"
+        android:layout_toStartOf="@+id/reading" />
 
 
     <ImageView
@@ -30,9 +30,9 @@
         android:id="@+id/btnPairedNodes"
         android:layout_weight="1"
         android:layout_gravity="center"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/logout"
-        android:layout_toStartOf="@+id/logout" />
+        android:layout_alignTop="@+id/btnRefreshSensors"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 
@@ -41,11 +41,10 @@
         android:src="@drawable/refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:layout_above="@+id/btnMotion"
-        android:layout_alignRight="@+id/btnActivity"
-        android:layout_alignEnd="@+id/btnActivity"
-        android:layout_marginRight="48dp" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="86dp" />
 
     <ImageView
 
@@ -55,7 +54,7 @@
         android:src="@drawable/stream_motion"
         android:id="@+id/btnMotion"
         android:layout_weight="1"
-        android:layout_below="@+id/btnPairedNodes"
+        android:layout_alignTop="@+id/btnOxa"
         android:layout_alignLeft="@+id/btnRefreshSensors"
         android:layout_alignStart="@+id/btnRefreshSensors" />
 
@@ -68,9 +67,11 @@
         android:src="@drawable/stream_oxa"
         android:id="@+id/btnOxa"
         android:layout_weight="1"
-        android:layout_alignTop="@+id/btnMotion"
-        android:layout_alignLeft="@+id/reading"
-        android:layout_alignStart="@+id/reading" />
+        android:layout_below="@+id/btnPairedNodes"
+        android:layout_toStartOf="@+id/btnActivity"
+        android:layout_marginTop="64dp"
+        android:layout_alignRight="@+id/btnPairedNodes"
+        android:layout_alignEnd="@+id/btnPairedNodes" />
 
 
 
@@ -84,9 +85,9 @@
         android:id="@+id/reading"
         android:layout_weight="1"
 
-        android:layout_below="@+id/btnOxa"
-        android:layout_toLeftOf="@+id/logout"
-        android:layout_toStartOf="@+id/logout" />
+        android:layout_alignTop="@+id/btnOxa"
+        android:layout_alignLeft="@+id/syncDatabase"
+        android:layout_alignStart="@+id/syncDatabase" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -94,9 +95,10 @@
         android:text="Logout"
         android:src="@drawable/logout"
         android:id="@+id/logout"
-        android:layout_above="@+id/btnActivity"
-        android:layout_alignRight="@+id/syncDatabase"
-        android:layout_alignEnd="@+id/syncDatabase" />
+        android:layout_marginTop="56dp"
+        android:layout_below="@+id/reading"
+        android:layout_toLeftOf="@+id/btnMotion"
+        android:layout_toStartOf="@+id/btnMotion" />
 
 
     <ImageView
@@ -105,9 +107,8 @@
         android:text="Sync Database"
         android:src="@drawable/sync"
         android:id="@+id/syncDatabase"
-        android:layout_above="@+id/logout"
-        android:layout_alignLeft="@+id/btnMotion"
-        android:layout_alignStart="@+id/btnMotion" />
+        android:layout_alignTop="@+id/btnRefreshSensors"
+        android:layout_centerHorizontal="true" />
 
 
 

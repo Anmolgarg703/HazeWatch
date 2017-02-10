@@ -32,10 +32,11 @@
         android:layout_marginTop="71dp" />
 
 
-    <Button
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="SUBMIT"
+        android:src="@drawable/submit"
         android:id="@+id/submit"
         android:onClick="submitback"
         android:layout_below="@+id/spinner"
