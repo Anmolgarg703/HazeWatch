@@ -21,6 +21,9 @@ public class DatabaseEntryModel {
     float gpsSpeed;
     String activity;
 
+    float tia_gain;
+    float responseRatio;
+    String serialNumber;
 
     //GPS Location
     double latitude;
@@ -32,6 +35,24 @@ public class DatabaseEntryModel {
     String CO;
     String COBaseline;
     String SO2Baseline;
+    String CO_Raw;
+    String SO2_Raw;
+
+    public String getCO_Raw() {
+        return CO_Raw;
+    }
+
+    public void setCO_Raw(String CO_Raw) {
+        this.CO_Raw = CO_Raw;
+    }
+
+    public String getSO2_Raw() {
+        return SO2_Raw;
+    }
+
+    public void setSO2_Raw(String SO2_Raw) {
+        this.SO2_Raw = SO2_Raw;
+    }
 
     public void setAccelerometerReadings(float ax, float ay, float az){
         this.accelerometerX = ax;
@@ -43,6 +64,30 @@ public class DatabaseEntryModel {
         this.magnetometerX = mx;
         this.magnetometerY = my;
         this.magnetometerZ = mz;
+    }
+
+    public float getTia_gain() {
+        return tia_gain;
+    }
+
+    public void setTia_gain(float tia_gain) {
+        this.tia_gain = tia_gain;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public float getResponseRatio() {
+        return responseRatio;
+    }
+
+    public void setResponseRatio(float responseRatio) {
+        this.responseRatio = responseRatio;
     }
 
     public String getUsername() {

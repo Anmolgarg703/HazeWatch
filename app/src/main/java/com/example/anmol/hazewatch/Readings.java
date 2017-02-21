@@ -193,7 +193,7 @@ public class Readings extends Activity implements SensorEventListener, Communica
         databaseEntry = OxaFragment.combineValues(databaseEntry);
         Gson gson = new Gson();
         request.setRequest(gson.toJson(databaseEntry));
-        //Log.d("request ",request.toString());
+        Log.d("request ",request.toString());
         String requestObject = gson.toJson(request);
         Log.d("request testing ",requestObject);
         if (checkInternetConnection()) {
