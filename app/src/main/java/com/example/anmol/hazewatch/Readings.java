@@ -76,9 +76,9 @@ public class Readings extends Activity implements SensorEventListener, Communica
             @Override
             public void run() {
                 getGPSLocation();
-                handler.postDelayed(this, 2000);
+                handler.postDelayed(this, 1000);
             }
-        }, 2000);
+        }, 1000);
             threadCount++;
         }
         mPrefs.edit().putInt(THREAD_COUNT, threadCount).commit();
