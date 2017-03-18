@@ -6,11 +6,11 @@
     <string name="hint_password">Password</string>
     <string name="hint_phone">Phone</string>
     <string name="btn_sign_up">Sign Up</string>
-<string name="dev">developers</string>
+    <string name="dev">developers</string>
     <string name="err_msg_name">Enter your full name</string>
     <string name="err_msg_email">Enter valid email address</string>
     <string name="err_msg_password">Enter the password</string>
     <string name="err_msg_phone">Enter the phone</string>
     <string name="spinner">Spinner</string>
-     <string name="spinner_title">Choose Activity</string>
+    <string name="spinner_title">Choose Activity</string>
 </resources>

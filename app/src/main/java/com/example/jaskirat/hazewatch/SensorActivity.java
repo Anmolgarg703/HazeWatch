@@ -38,6 +38,7 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
 
     private static final String LOGIN = "isLogin";
     private static final String PREFERENCE_NAME = "LoginActivity";
+    private static final String THREAD_COUNT = "ThreadCount";
     private static final String TAG = SensorActivity.class.getName();
 
    // private boolean isPulsing = false;
@@ -58,6 +59,7 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
     @Override
     public void onResume(){
         super.onResume();
+        //Toast.makeText(this, "OnresumeCalled", Toast.LENGTH_SHORT).show();
 
         ensureBluetoothIsOn();
 
@@ -119,6 +121,7 @@ public class SensorActivity extends FragmentActivity implements View.OnClickList
 
         else if(view.getId() == R.id.logout){
             mPrefs.edit().putBoolean(LOGIN,false).commit();
+            //mPrefs.edit().putInt(THREAD_COUNT, 0).commit();
             Intent logout = new Intent(this, MainActivity.class);
             logout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(logout);

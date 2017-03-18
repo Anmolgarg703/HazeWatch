@@ -74,6 +74,7 @@ public class SyncDatabase extends AppCompatActivity implements Communication{
         }
     }
 
+
     @Override
     public void onCompletion(String response) {
         //Toast.makeText(this, "Deleting "+ data, Toast.LENGTH_SHORT).show();

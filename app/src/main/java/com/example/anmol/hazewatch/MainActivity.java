@@ -1,7 +1,10 @@
 package com.example.anmol.hazewatch;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements Communication {
     private SharedPreferences mPrefs;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +46,15 @@ public class MainActivity extends AppCompatActivity implements Communication {
     }
 
     public void processForm(View v){
-        String phone = mPhone.getText().toString();
-        String password = mPassword.getText().toString();
-
-        loginUser(phone,password);
+        boolean isConnectedToInternet = checkInternetConnection();
+        if(isConnectedToInternet) {
+            String phone = mPhone.getText().toString();
+            String password = mPassword.getText().toString();
+            loginUser(phone,password);
+        }
+        else{
+            Toast.makeText(this,"Check internet connection",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void loginUser(String phone, String password) {
@@ -93,5 +100,23 @@ public class MainActivity extends AppCompatActivity implements Communication {
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    private boolean checkInternetConnection() {
+        ConnectivityManager connec = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo ni = connec.getActiveNetworkInfo();
+
+        if(ni==null){
+            return false;
+        }
+        else{
+            if(ni.isConnected()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     }
 }

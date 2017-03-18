@@ -47,8 +47,8 @@
         <activity android:name=".jaskirat.hazewatch.SensorActivity" />
         <activity android:name=".anmol.hazewatch.Readings" />
         <activity android:name=".anmol.hazewatch.DeveloperActivity" />
-        <activity android:name=".anmol.hazewatch.SyncDatabase"></activity>
-        <activity android:name=".jaskirat.hazewatch.AndroidSpinnerActivity"></activity>
+        <activity android:name=".anmol.hazewatch.SyncDatabase" />
+        <activity android:name=".jaskirat.hazewatch.AndroidSpinnerActivity" />
     </application>
 
 </manifest>

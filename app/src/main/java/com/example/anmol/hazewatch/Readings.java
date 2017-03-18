@@ -32,7 +32,7 @@ public class Readings extends Activity implements SensorEventListener, Communica
 
     private SensorManager mSensorManager;
     private TextView accelerometer;
-    private TextView pressure;
+    //private TextView pressure;
     private TextView magnetometer;
     private TextView temperature;
     private TextView gps;
@@ -55,24 +55,41 @@ public class Readings extends Activity implements SensorEventListener, Communica
     private static final String ACTIVITY= "Activity";
     private String activity;
     final Handler handler = new Handler();
+    Runnable runnable;
+   // private boolean shouldBeRunning = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_readings);
 
+        //Toast.makeText(this,"OncreateCalled",Toast.LENGTH_SHORT).show();
+
         myDb = new DBHelper(this);
 
         mPrefs = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
         accelerometer = (TextView) findViewById(R.id.accelerometer);
         magnetometer = (TextView) findViewById(R.id.magnetometer);
-        pressure = (TextView) findViewById(R.id.pressure);
+        //pressure = (TextView) findViewById(R.id.pressure);
         temperature = (TextView) findViewById(R.id.temperature);
         gps = (TextView) findViewById(R.id.gps);
 
         int threadCount = mPrefs.getInt(THREAD_COUNT, 0);
-        if(threadCount == 0){
-        handler.postDelayed(new Runnable() {
+        if(threadCount == 0) {
+            Toast.makeText(this, "New Thread is being created", Toast.LENGTH_SHORT).show();
+            threadCount++;
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+                   // if(shouldBeRunning) {
+                        getGPSLocation();
+                        handler.postDelayed(this, 1000);
+                    //}
+                }
+            };
+            handler.postDelayed(runnable, 1000);
+        }
+        /*handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 getGPSLocation();
@@ -80,7 +97,7 @@ public class Readings extends Activity implements SensorEventListener, Communica
             }
         }, 1000);
             threadCount++;
-        }
+        }*/
         mPrefs.edit().putInt(THREAD_COUNT, threadCount).commit();
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -93,13 +110,13 @@ public class Readings extends Activity implements SensorEventListener, Communica
             //Toast.makeText(this, "No Accelerometer Sensors", Toast.LENGTH_SHORT).show();
         }
 
-        if (mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) != null) {
+        /*if (mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) != null) {
             Sensor pressure = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
             mSensorManager.registerListener(this, pressure, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
             pressure.setText("No Pressure Sensors");
             //Toast.makeText(this, "No Pressure Sensors", Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null) {
             Sensor magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
@@ -120,6 +137,7 @@ public class Readings extends Activity implements SensorEventListener, Communica
     @Override
     protected void onResume() {
         super.onResume();
+        //Toast.makeText(this, "OnresumeCalled", Toast.LENGTH_SHORT).show();
         getGPSLocation();
     }
 
@@ -133,11 +151,11 @@ public class Readings extends Activity implements SensorEventListener, Communica
             ay = event.values[1];
             az = event.values[2];
             accelerometer.setText("AX = " + ax + "\nAY = " + ay + "\nAZ = " + az);
-        } else if (sensor.getType() == Sensor.TYPE_PRESSURE) {
+        } /*else if (sensor.getType() == Sensor.TYPE_PRESSURE) {
             pressureReading = event.values[0];
             pressure.setText("Pressure = " + pressureReading);
 
-        } else if (sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+        }*/ else if (sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
             mx = event.values[0];
             my = event.values[1];
             mz = event.values[2];
@@ -169,6 +187,7 @@ public class Readings extends Activity implements SensorEventListener, Communica
             }
         }
         else{
+            //handler.removeCallbacks(runnable);
             finish();
         }
     }

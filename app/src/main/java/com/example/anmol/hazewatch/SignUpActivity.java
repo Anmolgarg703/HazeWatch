@@ -1,7 +1,10 @@
 package com.example.anmol.hazewatch;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -53,47 +56,51 @@ public class SignUpActivity extends AppCompatActivity implements Communication {
     }
 
     public void processForm(View v){
-        String name = mName.getText().toString();
-        String email = mEmail.getText().toString();
-        String phone = mPhone.getText().toString();
-        String password = mPassword.getText().toString();
-        String confirmPassword = mConfirmPassword.getText().toString();
-        String height = mHeight.getText().toString();
-        String weight = mWeight.getText().toString();
-        String age = mAge.getText().toString();
-        String gender = mGender.getText().toString();
-        
-        if(validateName(name)){
-            if(validateEmail(email)){
-                if (validatePhoneNumber(phone)){
-                    if(validatePassword(password)){
-                        if(passwordsMatch(password,confirmPassword)){
+        boolean isConnectedToInternet = checkInternetConnection();
+        if(!isConnectedToInternet){
+            Toast.makeText(this,"Check internet connection",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            String name = mName.getText().toString();
+            String email = mEmail.getText().toString();
+            String phone = mPhone.getText().toString();
+            String password = mPassword.getText().toString();
+            String confirmPassword = mConfirmPassword.getText().toString();
+            String height = mHeight.getText().toString();
+            String weight = mWeight.getText().toString();
+            String age = mAge.getText().toString();
+            String gender = mGender.getText().toString();
 
-                            UserSignUpModel userSignUp = new UserSignUpModel(name, email, phone, password, height, weight, age, gender);
-                            signUpUser(userSignUp);
+            if (validateName(name)) {
+                if (validateEmail(email)) {
+                    if (validatePhoneNumber(phone)) {
+                        if (validatePassword(password)) {
+                            if (passwordsMatch(password, confirmPassword)) {
 
-                        }else{
-                            Toast.makeText(this,"Passwords do not match", Toast.LENGTH_SHORT).show();
-                            mConfirmPassword.setText("");
-                            mConfirmPassword.requestFocus();
+                                UserSignUpModel userSignUp = new UserSignUpModel(name, email, phone, password, height, weight, age, gender);
+                                signUpUser(userSignUp);
+
+                            } else {
+                                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                                mConfirmPassword.setText("");
+                                mConfirmPassword.requestFocus();
+                            }
+                        } else {
+                            Toast.makeText(this, "Password must be atleast 8 characters long", Toast.LENGTH_SHORT).show();
+                            mPassword.requestFocus();
                         }
+                    } else {
+                        Toast.makeText(this, "Please enter a valid Phone Number", Toast.LENGTH_SHORT).show();
+                        mPhone.requestFocus();
                     }
-                    else{
-                        Toast.makeText(this,"Password must be atleast 8 characters long", Toast.LENGTH_SHORT).show();
-                        mPassword.requestFocus();
-                    }
+                } else {
+                    Toast.makeText(this, "Please enter a valid Email Id", Toast.LENGTH_SHORT).show();
+                    mEmail.requestFocus();
                 }
-                else{
-                    Toast.makeText(this,"Please enter a valid Phone Number", Toast.LENGTH_SHORT).show();
-                    mPhone.requestFocus();
-                }
-            }else {
-                Toast.makeText(this,"Please enter a valid Email Id", Toast.LENGTH_SHORT).show();
-                mEmail.requestFocus();
+            } else {
+                Toast.makeText(this, "Please enter a valid name", Toast.LENGTH_SHORT).show();
+                mName.requestFocus();
             }
-        }else{
-            Toast.makeText(this,"Please enter a valid name", Toast.LENGTH_SHORT).show();
-            mName.requestFocus();
         }
     }
 
@@ -171,6 +178,24 @@ public class SignUpActivity extends AppCompatActivity implements Communication {
         }
         else{
             Toast.makeText(this,"Some error",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean checkInternetConnection() {
+        ConnectivityManager connec = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo ni = connec.getActiveNetworkInfo();
+
+        if(ni==null){
+            return false;
+        }
+        else{
+            if(ni.isConnected()){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
     }
 }
