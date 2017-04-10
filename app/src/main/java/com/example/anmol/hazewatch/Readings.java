@@ -2,7 +2,6 @@ package com.example.anmol.hazewatch;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -10,11 +9,11 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +56,8 @@ public class Readings extends Activity implements SensorEventListener, Communica
     final Handler handler = new Handler();
     Runnable runnable;
    // private boolean shouldBeRunning = true;
+    //int threadCount;
+    //boolean timestamp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,31 +75,6 @@ public class Readings extends Activity implements SensorEventListener, Communica
         temperature = (TextView) findViewById(R.id.temperature);
         gps = (TextView) findViewById(R.id.gps);
 
-        int threadCount = mPrefs.getInt(THREAD_COUNT, 0);
-        if(threadCount == 0) {
-            Toast.makeText(this, "New Thread is being created", Toast.LENGTH_SHORT).show();
-            threadCount++;
-            runnable = new Runnable() {
-                @Override
-                public void run() {
-                   // if(shouldBeRunning) {
-                        getGPSLocation();
-                        handler.postDelayed(this, 1000);
-                    //}
-                }
-            };
-            handler.postDelayed(runnable, 1000);
-        }
-        /*handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getGPSLocation();
-                handler.postDelayed(this, 1000);
-            }
-        }, 1000);
-            threadCount++;
-        }*/
-        mPrefs.edit().putInt(THREAD_COUNT, threadCount).commit();
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
@@ -125,13 +101,13 @@ public class Readings extends Activity implements SensorEventListener, Communica
             magnetometer.setText("No Magnetic Sensors");
             //Toast.makeText(this, "No Magnetic Sensors", Toast.LENGTH_SHORT).show();
         }
-        if (mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) != null) {
+        /*if (mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) != null) {
             Sensor temperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
             mSensorManager.registerListener(this, temperature, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
             temperature.setText("No Temperature Sensors");
             //Toast.makeText(this, "No Temperature Sensors", Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     @Override
@@ -139,8 +115,19 @@ public class Readings extends Activity implements SensorEventListener, Communica
         super.onResume();
         //Toast.makeText(this, "OnresumeCalled", Toast.LENGTH_SHORT).show();
         getGPSLocation();
+        displayTextOnButton();
     }
 
+    /*boolean on = true;
+    TimerTask myTimerTask = new TimerTask() {
+        @Override
+        public void run() {
+            on = true;
+            t.cancel();
+        }
+    };
+
+    Timer t = new Timer();*/
     @Override
     public void onSensorChanged(SensorEvent event) {
 
@@ -151,6 +138,21 @@ public class Readings extends Activity implements SensorEventListener, Communica
             ay = event.values[1];
             az = event.values[2];
             accelerometer.setText("AX = " + ax + "\nAY = " + ay + "\nAZ = " + az);
+            Long tsLong = System.currentTimeMillis() / 1000;
+            Long timestamp = mPrefs.getLong("Timestamp",0);
+            int threadCount = mPrefs.getInt(THREAD_COUNT, 0);
+            if(threadCount==1 && tsLong > timestamp){
+                getGPSLocation();
+                /*on = false;
+                t= new Timer();
+                t.schedule(myTimerTask, 1000L);*/
+
+            }
+            /*try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
         } /*else if (sensor.getType() == Sensor.TYPE_PRESSURE) {
             pressureReading = event.values[0];
             pressure.setText("Pressure = " + pressureReading);
@@ -160,10 +162,10 @@ public class Readings extends Activity implements SensorEventListener, Communica
             my = event.values[1];
             mz = event.values[2];
             magnetometer.setText("MX = " + mx + "\nMY = " + my + "\nMZ = " + mz);
-        } else if (sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
+        } /*else if (sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
             temperatureReading = event.values[0];
             temperature.setText("Temperature = " + temperatureReading);
-        }
+        }*/
 
     }
 
@@ -173,26 +175,21 @@ public class Readings extends Activity implements SensorEventListener, Communica
     }
 
     public void getGPSLocation() {
-        boolean isLogin = mPrefs.getBoolean(LOGIN,false);
-        if(isLogin) {
-            gpsTracker = new GPSTracker(Readings.this);
-            if (gpsTracker.canGetLocation()) {
-                latitude = gpsTracker.getLatitude();
-                longitude = gpsTracker.getLongitude();
-                speed=  gpsTracker.getSpeed();
-                gps.setText("Latitude: " + latitude + "\nLongitude: " + longitude + "\nGPSspeed: " + speed);
-                addEntryToDb();
-            } else {
-                gpsTracker.showSettingsAlert();
-            }
-        }
-        else{
-            //handler.removeCallbacks(runnable);
-            finish();
+        gpsTracker = new GPSTracker(Readings.this);
+        if (gpsTracker.canGetLocation()) {
+            latitude = gpsTracker.getLatitude();
+            longitude = gpsTracker.getLongitude();
+            speed=  gpsTracker.getSpeed();
+            gps.setText("Latitude: " + latitude + "\nLongitude: " + longitude + "\nGPSspeed: " + speed);
+            addEntryToDb();
+        } else {
+            gpsTracker.showSettingsAlert();
         }
     }
 
     private void addEntryToDb() {
+        Long tsLong = System.currentTimeMillis() / 1000;
+        mPrefs.edit().putLong("Timestamp",tsLong).commit();
         DatabaseEntryModel databaseEntry = new DatabaseEntryModel();
         Request request = new Request("addEntryToDb");
         databaseEntry.setLongitude(longitude);
@@ -205,7 +202,6 @@ public class Readings extends Activity implements SensorEventListener, Communica
 
         String phoneNumber = mPrefs.getString("Phone", "UnknownUser");
         databaseEntry.setUsername(phoneNumber);
-        Long tsLong = System.currentTimeMillis() / 1000;
         String timestamp = tsLong.toString();
         databaseEntry.setTimestamp(timestamp);
         Log.d("Readings", "Calling Oxa Fragment");
@@ -224,12 +220,28 @@ public class Readings extends Activity implements SensorEventListener, Communica
         }
     }
 
-    public void viewOnMap(View v) {
-        Uri location = Uri.parse("geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California");
-        // Or map point based on latitude/longitude
-        // Uri location = Uri.parse("geo:37.422219,-122.08364?z=14"); // z param is zoom level
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
-        startActivity(mapIntent);
+    public void startStopCollection(View v) {
+        int threadCount = mPrefs.getInt(THREAD_COUNT, 0);
+        if(threadCount == 0){
+            threadCount=1;
+        }
+        else{
+            threadCount=0;
+        }
+        Toast.makeText(this, "Thread count is " + threadCount, Toast.LENGTH_SHORT).show();
+        mPrefs.edit().putInt(THREAD_COUNT, threadCount).commit();
+        displayTextOnButton();
+    }
+
+    public void displayTextOnButton(){
+        int threadCount = mPrefs.getInt(THREAD_COUNT, 0);
+        Button button = (Button) findViewById(R.id.button2);
+        if(threadCount == 0){
+            button.setText("Start Collection");
+        }
+        else{
+            button.setText("Stop Collection");
+        }
     }
 
     public void displayNumberOfRows(View v){

@@ -67,8 +67,9 @@ public class DBConnect extends AsyncTask<String,Void,String> {
 
     private HttpURLConnection getConnection() throws Exception
     {
-        //String urlString = "http://192.168.1.5/ServerFiles_Capstone/receive.php";
-        String urlString = "http://115.248.114.147/sensor/receive.php";
+        //String urlString = "http://172.31.73.146/ServerFiles_Capstone/receive.php";
+        //String urlString = "http://115.248.114.147/sensor/receive.php";
+        String urlString = "http://pecfest.in/Hazeaway_Capstone/receive.php";
         URL url = new URL(urlString);
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
